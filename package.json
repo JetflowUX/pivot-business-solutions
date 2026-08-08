@@ -1,0 +1,10 @@
+{
+  "name": "pivot-business-solutions",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Pivot Business Solutions LLC — counseling & consulting for athletes, young people and business.",
+  "scripts": {
+    "dev": "npx --yes serve .",
+    "start": "npx --yes serve ."
+  }
+}
