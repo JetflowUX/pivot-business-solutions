@@ -1,35 +1,77 @@
-/* ============================================================
-   PIVOT BUSINESS SOLUTIONS — AZULEJO STATION HALL
+/* =====================================================================
+   PIVOT BUSINESS SOLUTIONS — CONCOURSE DEPARTURE BOARD
    Vanilla, no dependencies, no build.
 
-   Motion in this hall is one idea: glaze flooding line work in the kiln.
-   Panels do not slide or bounce; their ink washes in from the top edge.
-   Nothing is hidden from a visitor whose JS never runs — the wash styles
-   are scoped to .js, which the inline head partner of this file sets.
-   ============================================================ */
+   Motion in this hall is one idea: a board setting itself. Character
+   cells flip down from the hinge, left to right, and the rows land
+   behind them. That happens once, on the first screen, and nothing
+   else on the site moves.
+
+   Nothing here is required to read the page. The cell markup is added
+   by this file and styled only under html.js, so a visitor whose JS
+   never runs gets the same words in the same order, as tracked caps.
+   ===================================================================== */
 (() => {
   'use strict';
 
   const REDUCE = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  const root = document.documentElement;
 
-  /* ---- 1. kiln: light glaze / dark glaze, remembered ---- */
-  const themeBtn = document.getElementById('themeBtn');
-  if (themeBtn) {
-    themeBtn.addEventListener('click', () => {
-      let current = root.getAttribute('data-theme');
-      if (!current) {
-        const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
-        current = prefersDark ? 'dark' : 'light';
+  /* ---- 1. the flaps: split board text into fixed character cells ---- */
+  const splitToCells = (el) => {
+    const lines = el.innerHTML.split(/<br\s*\/?>/i);
+    const frag = document.createDocumentFragment();
+    let index = 0;
+
+    lines.forEach((line) => {
+      // Read the line as text, not markup: entities decode, tags do not run.
+      const probe = document.createElement('div');
+      probe.innerHTML = line;
+      const text = (probe.textContent || '').trim();
+      if (!text) return;
+
+      const row = document.createElement('span');
+      row.className = 'ln';
+
+      for (const ch of text) {
+        const cell = document.createElement('span');
+        cell.className = ch === ' ' ? 'cell sp' : 'cell';
+        cell.style.setProperty('--d', Math.min(index * 16, 760) + 'ms');
+        const glyph = document.createElement('span');
+        glyph.textContent = ch === ' ' ? ' ' : ch;
+        cell.appendChild(glyph);
+        row.appendChild(cell);
+        index++;
       }
-      const next = current === 'dark' ? 'light' : 'dark';
-      root.setAttribute('data-theme', next);
-      themeBtn.setAttribute('aria-label', next === 'dark' ? 'Switch to the light glaze' : 'Switch to the dark glaze');
-      try { localStorage.setItem('pivot-theme', next); } catch (e) { /* private mode */ }
+      frag.appendChild(row);
     });
-  }
 
-  /* ---- 2. the route list on narrow frames ---- */
+    if (!frag.childNodes.length) return 0;
+    el.textContent = '';
+    el.appendChild(frag);
+    return index;
+  };
+
+  const boards = document.querySelectorAll('[data-flap]');
+  let cellCount = 0;
+  boards.forEach((el) => { cellCount = Math.max(cellCount, splitToCells(el)); });
+
+  /* ---- 2. the rows land after the flaps have set ---- */
+  const tables = document.querySelectorAll('.board[data-set]');
+  tables.forEach((table) => {
+    const lead = Math.min(cellCount * 16, 760) * 0.65;
+    table.querySelectorAll('tbody tr').forEach((tr, i) => {
+      tr.style.setProperty('--d', Math.round(lead + i * 70) + 'ms');
+    });
+  });
+
+  const run = () => {
+    boards.forEach((el) => el.classList.add('set'));
+    tables.forEach((el) => el.classList.add('set'));
+  };
+  if (REDUCE) run();
+  else requestAnimationFrame(() => requestAnimationFrame(run));
+
+  /* ---- 3. the route list on narrow frames ---- */
   const routeToggle = document.getElementById('routeToggle');
   const mobileRoutes = document.getElementById('mobileRoutes');
   if (routeToggle && mobileRoutes) {
@@ -52,29 +94,6 @@
     });
   }
 
-  /* ---- 3. the glaze wash ---- */
-  const washables = document.querySelectorAll('[data-a]');
-  const flood = (el, delay) => {
-    if (!REDUCE && delay) el.style.transitionDelay = `${delay}ms`;
-    el.classList.add('in');
-  };
-
-  if (!('IntersectionObserver' in window) || REDUCE) {
-    washables.forEach((el) => flood(el, 0));
-  } else {
-    const io = new IntersectionObserver((entries) => {
-      entries.forEach((entry) => {
-        if (!entry.isIntersecting) return;
-        const group = entry.target.parentElement || document.body;
-        const siblings = group.querySelectorAll(':scope > [data-a]');
-        const index = Array.prototype.indexOf.call(siblings, entry.target);
-        flood(entry.target, Math.max(0, index) * 80);
-        io.unobserve(entry.target);
-      });
-    }, { threshold: 0.1, rootMargin: '0px 0px -6% 0px' });
-    washables.forEach((el) => io.observe(el));
-  }
-
   /* ---- 4. the consult request → the visitor's own mail client ---- */
   /* PLACEHOLDER: swap this address for the practice's real one.
      It also appears in the contact panel and the footer of every page. */
@@ -95,7 +114,7 @@
       form.email.classList.toggle('invalid', !emailOk);
 
       if (!name || !emailOk) {
-        status.textContent = 'Please add your name and an email address I can reply to.';
+        status.textContent = 'Add your name and an email address I can reply to.';
         status.classList.add('is-error');
         (name ? form.email : form.name).focus();
         return;

@@ -1,13 +1,8 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64">
-  <!-- A single glazed tile: the pivot device painted in cobalt on tin white. -->
-  <rect width="64" height="64" fill="#FAFAF7"/>
-  <rect x="2.5" y="2.5" width="59" height="59" fill="none" stroke="#A8C3E6" stroke-width="1.6"/>
-  <g fill="none" stroke="#0D3B8E" stroke-width="4" stroke-linecap="round" stroke-linejoin="round">
-    <path d="M17 48 A31 31 0 0 1 46 19"/>
-    <path d="M46 19 L37.4 20.3 M46 19 L44.7 27.6"/>
-  </g>
-  <g fill="#0D3B8E" transform="translate(17 48)">
-    <circle cx="0" cy="-4" r="3.2"/><circle cx="4" cy="0" r="3.2"/>
-    <circle cx="0" cy="4" r="3.2"/><circle cx="-4" cy="0" r="3.2"/>
-  </g>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
+  <rect width="32" height="32" fill="#0D0D0F"/>
+  <rect x="3" y="3" width="26" height="26" fill="#1B1B1E"/>
+  <rect x="3" y="15" width="26" height="2" fill="#08080A"/>
+  <path d="M9 24A11 11 0 0 1 22.5 10.6" fill="none" stroke="#FFB400" stroke-width="2.6" stroke-linecap="round"/>
+  <path d="M22.5 10.6 18.2 11.2M22.5 10.6 21.9 15" fill="none" stroke="#FFB400" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/>
+  <circle cx="9" cy="24" r="3" fill="#F2F2F2"/>
 </svg>

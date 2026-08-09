@@ -1,720 +1,546 @@
 @charset "UTF-8";
-/* ==========================================================================
-   PIVOT BUSINESS SOLUTIONS — AZULEJO STATION HALL
-   A tin-glaze tile hall. Cobalt on milk white, mustard only inside borders.
-   Every layout decision snaps to a whole tile; grout seams run straight
-   through every panel, photograph and figure without exception.
-   No build step. No external requests.
-   ========================================================================== */
+/* =====================================================================
+   PIVOT BUSINESS SOLUTIONS — CONCOURSE DEPARTURE BOARD
+   A rail concourse split-flap board. Matte black flap faces, white paint
+   letters in fixed character cells, brushed steel frames, one amber lamp.
+   Rows are live entities: the row never leaves the board, only its
+   destination changes. That is the pivot, and it is the whole site.
+   No build step. No external requests. One glaze — a board is black.
+   ===================================================================== */
 
-/* --------------------------------------------------------------- 1. FONTS */
-/* Cinzel — inscriptional roman capitals, the lettering brushed into a
-   cartouche. EB Garamond — the old-style text face the panels are read in. */
-@font-face{font-family:'Cinzel';src:url(fonts/cinzel-400-normal.woff2) format('woff2');font-weight:400;font-style:normal;font-display:swap}
-@font-face{font-family:'Cinzel';src:url(fonts/cinzel-600-normal.woff2) format('woff2');font-weight:600;font-style:normal;font-display:swap}
-@font-face{font-family:'Cinzel';src:url(fonts/cinzel-700-normal.woff2) format('woff2');font-weight:700;font-style:normal;font-display:swap}
-@font-face{font-family:'EB Garamond';src:url(fonts/ebgaramond-400-normal.woff2) format('woff2');font-weight:400;font-style:normal;font-display:swap}
-@font-face{font-family:'EB Garamond';src:url(fonts/ebgaramond-500-normal.woff2) format('woff2');font-weight:500;font-style:normal;font-display:swap}
-@font-face{font-family:'EB Garamond';src:url(fonts/ebgaramond-600-normal.woff2) format('woff2');font-weight:600;font-style:normal;font-display:swap}
-@font-face{font-family:'EB Garamond';src:url(fonts/ebgaramond-400-italic.woff2) format('woff2');font-weight:400;font-style:italic;font-display:swap}
+/* ------------------------------------------------------------ 1. FONTS */
+/* Archivo Narrow — the paint on the flap: condensed caps in fixed cells,
+   one face on every character of the board voice. Archivo (regular width)
+   is the printed notice beside the board, where sentences have to be read
+   rather than scanned. */
+@font-face{font-family:'Archivo Narrow';src:url(fonts/archivonarrow-400-normal.woff2) format('woff2');font-weight:400;font-style:normal;font-display:swap}
+@font-face{font-family:'Archivo Narrow';src:url(fonts/archivonarrow-500-normal.woff2) format('woff2');font-weight:500;font-style:normal;font-display:swap}
+@font-face{font-family:'Archivo Narrow';src:url(fonts/archivonarrow-600-normal.woff2) format('woff2');font-weight:600;font-style:normal;font-display:swap}
+@font-face{font-family:'Archivo Narrow';src:url(fonts/archivonarrow-700-normal.woff2) format('woff2');font-weight:700;font-style:normal;font-display:swap}
+@font-face{font-family:'Archivo';src:url(fonts/archivo-400-normal.woff2) format('woff2');font-weight:400;font-style:normal;font-display:swap}
+@font-face{font-family:'Archivo';src:url(fonts/archivo-500-normal.woff2) format('woff2');font-weight:500;font-style:normal;font-display:swap}
+@font-face{font-family:'Archivo';src:url(fonts/archivo-600-normal.woff2) format('woff2');font-weight:600;font-style:normal;font-display:swap}
+@font-face{font-family:'Archivo';src:url(fonts/archivo-700-normal.woff2) format('woff2');font-weight:700;font-style:normal;font-display:swap}
 
-/* -------------------------------------------------------------- 2. TOKENS */
+/* ----------------------------------------------------------- 2. TOKENS */
 :root{
-  /* the tile. every measure in this stylesheet is a multiple of it. */
-  --tile:34px;
-  /* the hall and its gutters, resolved once so panels can bleed to the
-     wall edge without guessing what their grid cell is worth. */
-  --hall-w:min(calc(100vw - var(--tile)),calc(var(--tile) * 27));
-  --gutter:calc((100vw - var(--hall-w)) / 2);
+  color-scheme:dark;
 
-  /* glaze palette — light kiln */
-  --ground:#F1EFE7;
-  --panel:#FBFAF6;
-  --panel-2:#F5F3EC;
-  --ink:#0D3B8E;
-  --ink-2:#2E5CA8;
-  /* ink-3 carries small labels and captions, so it is pinned to >=4.5:1
-     against BOTH --panel and the slightly darker --ground. In a one-colour
-     medium hierarchy comes from size, weight and tracking, not from fading. */
-  --ink-3:#3F66A4;
-  --line:#A8C3E6;
-  --line-2:#DCE5F3;
-  --seam-c:#E1DCCC;
-  --gold:#C68C12;
-  --gold-orn:#E4B22A;
-  --duo:#0D3B8E;
-  --pic-bright:1;
-  /* the quote band stays a saturated cobalt panel in both glazes, so its
-     mustard accent never lands on a light ground */
-  --band-bg:#0D3B8E;
-  --band-ink:#FAFAF7;
-  --band-accent:#E4B22A;
+  /* the flap, painted from the board's own palette */
+  --flap:#0D0D0F;          /* concourse dark — the page ground */
+  --flap-top:#1B1B1E;      /* the upper half, catching the hall light */
+  --flap-bot:#0A0A0C;      /* the lower half, in the hinge's shadow */
 
-  --display:'Cinzel',Georgia,'Times New Roman',serif;
-  --text:'EB Garamond',Georgia,'Times New Roman',serif;
+  --paint:#F2F2F2;         /* flap white — the letter itself */
+  --paint-2:#9AA0A8;       /* steel light — secondary reading, 6.2:1 on flap */
+  --paint-3:#7D838C;       /* steel dark — labels and captions, 5.1:1 on flap */
 
-  --seams:linear-gradient(var(--seam-c) 1px,transparent 1px),
-          linear-gradient(90deg,var(--seam-c) 1px,transparent 1px);
+  --amber:#FFB400;         /* the row lamp. the only signal on this board */
+  --red:#D32F2F;           /* cancelled — fills and borders only */
+  --red-txt:#FF6F63;       /* cancelled — text, 7.1:1 on flap */
+  --green:#5BD07A;         /* running — the reply-time lamp */
 
-  --shadow:0 1px 0 rgba(13,59,142,.06), 0 12px 34px -22px rgba(13,59,142,.42);
-  --ease:cubic-bezier(.22,.61,.36,1);
+  --steel-2:#7D838C;
+  --steel-3:#2A2C31;       /* board hairline */
+  --steel-4:#3C3F45;       /* frame edge */
+
+  --board:linear-gradient(180deg,var(--flap-top) 0 calc(50% - 1px),#08080A calc(50% - 1px) calc(50% + 1px),var(--flap-bot) calc(50% + 1px) 100%);
+  --brushed:linear-gradient(180deg,#C6CBD2 0%,#9BA1A9 42%,#6E747D 53%,#8B9199 78%,#B2B8BF 100%);
+
+  --board-face:'Archivo Narrow',"Arial Narrow",Arial,sans-serif;
+  --notice:'Archivo',-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif;
+
+  --hall:min(100% - 1.6rem,1320px);
+  --rail:3px;                       /* the steel rail that closes every band */
+  --frame:6px;                      /* the board's own steel surround */
+  --r:3px;                          /* the board is a rectangle. so is everything on it */
+  --ease:cubic-bezier(.16,1,.3,1);
 }
+@media (min-width:760px){:root{--hall:min(100% - 3rem,1320px);--frame:11px}}
 
-/* dark kiln — the reverse glaze: white line work fired onto deep cobalt. */
-[data-theme=dark]{
-  --ground:#061C46;
-  --panel:#0A2758;
-  --panel-2:#0C2E66;
-  --ink:#EDF2FB;
-  --ink-2:#C3D6F1;
-  --ink-3:#93B2DF;
-  --line:#2E5CA8;
-  --line-2:#17417F;
-  --seam-c:rgba(168,195,230,.16);
-  --gold:#EFC456;
-  --gold-orn:#E9BE45;
-  --duo:#0A2758;
-  --pic-bright:.86;
-  --band-bg:#0A2758;
-  --band-ink:#EDF2FB;
-  --band-accent:#EFC456;
-  --shadow:0 1px 0 rgba(0,0,0,.25), 0 16px 40px -24px rgba(0,0,0,.8);
-}
-@media (prefers-color-scheme:dark){
-  :root:not([data-theme=light]){
-    --ground:#061C46;
-    --panel:#0A2758;
-    --panel-2:#0C2E66;
-    --ink:#EDF2FB;
-    --ink-2:#C3D6F1;
-    --ink-3:#93B2DF;
-    --line:#2E5CA8;
-    --line-2:#17417F;
-    --seam-c:rgba(168,195,230,.16);
-    --gold:#EFC456;
-    --gold-orn:#E9BE45;
-    --duo:#0A2758;
-    --pic-bright:.86;
-    --band-bg:#0A2758;
-    --band-ink:#EDF2FB;
-    --band-accent:#EFC456;
-    --shadow:0 1px 0 rgba(0,0,0,.25), 0 16px 40px -24px rgba(0,0,0,.8);
-  }
-}
-
-@media (min-width:700px){:root{--tile:40px}}
-@media (min-width:1100px){:root{--tile:44px}}
-
-/* ---------------------------------------------------------------- 3. BASE */
+/* ------------------------------------------------------------- 3. BASE */
 *,*::before,*::after{box-sizing:border-box}
 html{-webkit-text-size-adjust:100%;text-size-adjust:100%;scroll-behavior:smooth}
 @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
 
 body{
   margin:0;
-  background:var(--ground);
-  color:var(--ink);
-  font-family:var(--text);
-  font-size:clamp(1.06rem,.4vw + .98rem,1.19rem);
-  line-height:1.68;
-  font-feature-settings:"kern","liga","onum";
+  background:var(--flap);
+  color:var(--paint);
+  font-family:var(--notice);
+  font-size:clamp(1rem,.22vw + .95rem,1.06rem);
+  line-height:1.62;
   -webkit-font-smoothing:antialiased;
   overflow-x:hidden;
 }
 
-/* The hall's wall: grout seams across the whole field, snapped to the tile.
-   Painted on the element itself, not a fixed overlay, so the courses travel
-   with the wall as you scroll instead of hovering over it. */
-body{
-  background-image:var(--seams);
-  background-size:var(--tile) var(--tile);
-}
-/* Any section that lays down its own opaque glaze has to re-lay the seams,
-   otherwise it reads as blank paper. Panels reset their courses at each
-   border, which is what a real tile hall does at a frieze. */
-.hero,.masthead,.foot,.frieze-band{
-  background-image:var(--seams);
-  background-size:var(--tile) var(--tile);
-}
-
 img{max-width:100%;display:block}
 a{color:inherit}
-:focus-visible{outline:2.5px solid var(--gold);outline-offset:3px}
-
-h1,h2,h3,h4{
-  font-family:var(--display);font-weight:600;
-  text-transform:uppercase;letter-spacing:.045em;
-  line-height:1.12;margin:0;text-wrap:balance;
-}
-h1{font-weight:700;letter-spacing:.02em;line-height:1.04;font-size:clamp(2.1rem,5.4vw,4.1rem)}
-h2{font-size:clamp(1.6rem,3.2vw,2.65rem)}
-h3{font-size:clamp(1.08rem,1.5vw,1.35rem);letter-spacing:.08em}
-h4{font-size:.78rem;letter-spacing:.2em}
-p{margin:0 0 1.15em}
+p{margin:0 0 1.1em}
 p:last-child{margin-bottom:0}
-::selection{background:var(--ink);color:var(--panel)}
+ul,ol{margin:0;padding:0;list-style:none}
 
-/* -------------------------------------------------------------- 4. LAYOUT */
-.hall{width:var(--hall-w);margin-inline:auto}
-.sec{padding-block:calc(var(--tile) * 2.5)}
-@media (min-width:700px){.sec{padding-block:calc(var(--tile) * 3)}}
-.sec-tight{padding-block:calc(var(--tile) * 2)}
+/* Every heading is board paint: condensed caps, tracked, never a serif. */
+h1,h2,h3,h4{
+  font-family:var(--board-face);font-weight:700;
+  text-transform:uppercase;letter-spacing:.06em;
+  line-height:1.06;margin:0;text-wrap:balance;
+}
+h1{font-size:clamp(1.9rem,4.4vw,3.4rem);letter-spacing:.055em}
+h2{font-size:clamp(1.45rem,2.7vw,2.3rem)}
+h3{font-size:clamp(1.05rem,1.35vw,1.25rem);letter-spacing:.09em}
+h4{font-size:.72rem;letter-spacing:.2em;color:var(--paint-3);font-weight:600}
 
-.sec-head{margin-bottom:calc(var(--tile) * 1.5);max-width:34ch}
-.sec-head.center{margin-inline:auto;text-align:center;max-width:40ch}
-.sec-head p.lead{margin-top:.85em}
+/* Browser surfaces are part of the board, not the browser's business. */
+::selection{background:var(--amber);color:#140E00}
+:focus-visible{outline:2.5px solid var(--amber);outline-offset:2px}
+::placeholder{color:var(--paint-3);opacity:1}
+:root{scrollbar-color:var(--steel-4) var(--flap);accent-color:var(--amber);caret-color:var(--amber)}
+::-webkit-scrollbar{width:12px;height:12px}
+::-webkit-scrollbar-track{background:#0A0A0C}
+::-webkit-scrollbar-thumb{background:var(--steel-4);border:3px solid #0A0A0C}
+::-webkit-scrollbar-thumb:hover{background:var(--steel-2)}
 
-.eyebrow{
-  font-family:var(--display);font-weight:600;font-size:.68rem;
-  text-transform:uppercase;letter-spacing:.26em;color:var(--ink-2);
-  margin:0 0 .95em;display:flex;align-items:center;gap:.7em;
-}
-.sec-head.center .eyebrow{justify-content:center}
-.eyebrow::before,.eyebrow::after{
-  content:'';height:1px;width:calc(var(--tile) * .8);background:var(--line);flex:none;
-}
-.sec-head:not(.center) .eyebrow::before{display:none}
+.skip{position:absolute;left:-9999px;top:0;z-index:300;background:var(--amber);color:#140E00;
+  padding:.7rem 1.1rem;font-family:var(--board-face);font-weight:700;text-transform:uppercase;letter-spacing:.14em}
+.skip:focus{left:0}
 
-.lead{font-size:clamp(1.14rem,.6vw + 1rem,1.42rem);line-height:1.6;color:var(--ink-2)}
-.measure{max-width:62ch}
+/* ----------------------------------------------------------- 4. LAYOUT */
+.hall{width:var(--hall);margin-inline:auto}
+.sec{padding-block:clamp(3rem,6.5vw,5.4rem)}
+.sec-tight{padding-block:clamp(2.2rem,4vw,3.4rem)}
+.mt-1{margin-top:1rem}.mt-2{margin-top:2rem}.mb-1{margin-bottom:1rem}
+.center{text-align:center}
 
-/* ------------------------------------------------------------ 5. ORNAMENT */
-/* Every ornament is one SVG worn as a mask, so the ink is always a token
-   and light/dark need no second asset. */
-.frieze{
-  height:calc(var(--tile) * .78);
-  background:var(--ink);
-  -webkit-mask:url(images/orn-frieze.svg) repeat-x left center;
-  mask:url(images/orn-frieze.svg) repeat-x left center;
-  -webkit-mask-size:auto 100%;mask-size:auto 100%;
-  opacity:.9;
-}
-.frieze-band{
-  padding-block:calc(var(--tile) * .34);
-  border-block:1px solid var(--line);
-  background:var(--panel-2);
-}
-.frieze-band .frieze{opacity:.82}
-
-.fleuron{
-  display:block;width:44px;height:16px;flex:none;
-  background:var(--ink-2);
-  -webkit-mask:url(images/orn-fleuron.svg) no-repeat center/contain;
-  mask:url(images/orn-fleuron.svg) no-repeat center/contain;
-}
-.rule-fleuron{display:flex;align-items:center;gap:1rem;margin-block:calc(var(--tile) * .8)}
-.rule-fleuron::before,.rule-fleuron::after{content:'';height:1px;background:var(--line);flex:1}
-
-/* the cartouche: a double-ruled frame with volutes turned into its corners */
-.cartouche{position:relative;border:1px solid var(--line);background:var(--panel)}
-.cartouche::before{
-  content:'';position:absolute;inset:5px;border:1px solid var(--ink);opacity:.34;pointer-events:none;
-}
-.cartouche>.vol{
-  position:absolute;width:22px;height:22px;background:var(--gold-orn);pointer-events:none;
-  -webkit-mask:url(images/orn-corner.svg) no-repeat center/contain;
-  mask:url(images/orn-corner.svg) no-repeat center/contain;
-}
-.cartouche>.vol:nth-child(1){top:-1px;left:-1px}
-.cartouche>.vol:nth-child(2){top:-1px;right:-1px;transform:rotate(90deg)}
-.cartouche>.vol:nth-child(3){bottom:-1px;right:-1px;transform:rotate(180deg)}
-.cartouche>.vol:nth-child(4){bottom:-1px;left:-1px;transform:rotate(270deg)}
-
-.padrao{
-  background:var(--ink);opacity:.16;
-  -webkit-mask:url(images/orn-padrao.svg) repeat left top;
-  mask:url(images/orn-padrao.svg) repeat left top;
-  -webkit-mask-size:calc(var(--tile) * 1.6) calc(var(--tile) * 1.6);
-  mask-size:calc(var(--tile) * 1.6) calc(var(--tile) * 1.6);
-}
-
-.pivot-mark{
-  display:block;background:currentColor;flex:none;
-  -webkit-mask:url(images/orn-pivot.svg) no-repeat center/contain;
-  mask:url(images/orn-pivot.svg) no-repeat center/contain;
-}
-
-/* --------------------------------------------------------------- 6. PANEL */
-/* The narrative panel: the hall's one structural unit. Everything the
-   visitor reads sits inside a framed, glazed, seam-crossed panel. */
-.panel{
-  position:relative;background:var(--panel);
-  border:1px solid var(--line);box-shadow:var(--shadow);
-}
-.panel::after{
-  content:'';position:absolute;inset:0;pointer-events:none;
-  background-image:var(--seams);background-size:var(--tile) var(--tile);
-  opacity:.6;
-}
-.panel>*{position:relative;z-index:1}
-.panel-pad{padding:calc(var(--tile) * 1.1)}
-@media (min-width:700px){.panel-pad{padding:calc(var(--tile) * 1.3)}}
-
-/* -------------------------------------------------------- 7. PAINTED PHOTO */
-/* A photograph is not pasted onto the hall — it is fired into it: reduced to
-   cobalt oxide on white glaze, then crossed by the same grout seams as
-   everything else, straight through faces and sky alike. */
-.tilepic{
-  position:relative;isolation:isolate;overflow:hidden;
-  background:var(--duo);
-}
-.tilepic img{
-  width:100%;height:100%;object-fit:cover;
-  filter:grayscale(1) contrast(1.16) brightness(calc(1.02 * var(--pic-bright)));
-  mix-blend-mode:screen;
-}
-.tilepic::after{
-  content:'';position:absolute;inset:0;pointer-events:none;
-  background-image:var(--seams);background-size:var(--tile) var(--tile);
-  opacity:.85;mix-blend-mode:multiply;
-}
-[data-theme=dark] .tilepic::after,
-:root:not([data-theme=light]) .tilepic::after{mix-blend-mode:screen}
-@media (prefers-color-scheme:light){:root:not([data-theme=dark]) .tilepic::after{mix-blend-mode:multiply}}
-
-/* ------------------------------------------------------------- 8. STATION */
-/* The hall's entrance band: a framed signage frieze carrying the device,
-   the route names in roman caps, and the one action. */
-.station{position:sticky;top:0;z-index:60}
-.station-in{
-  background:var(--panel);border-bottom:1px solid var(--line);
-  box-shadow:0 1px 0 rgba(13,59,142,.05);
-}
-.station-bar{
-  display:flex;align-items:center;gap:calc(var(--tile) * .5);
-  min-height:calc(var(--tile) * 1.85);
-}
-
-.brand{display:flex;align-items:center;gap:.7rem;text-decoration:none;color:var(--ink);flex:none;padding-block:.5rem}
-.brand .pivot-mark{width:30px;height:30px}
-.brand-txt{display:flex;flex-direction:column;line-height:1}
-.brand-name{font-family:var(--display);font-weight:700;font-size:1.02rem;letter-spacing:.14em;text-transform:uppercase}
-.brand-sub{font-family:var(--display);font-weight:400;font-size:.55rem;letter-spacing:.24em;text-transform:uppercase;color:var(--ink-3);margin-top:.34em}
-
-.routes{display:none;margin-left:auto;align-items:center}
-@media (min-width:1000px){.routes{display:flex}}
-.routes a{
-  font-family:var(--display);font-weight:600;font-size:.71rem;
-  text-transform:uppercase;letter-spacing:.15em;text-decoration:none;
-  color:var(--ink-2);padding:.7em .95em;position:relative;transition:color .25s var(--ease);
-}
-.routes a+a{border-left:1px solid var(--line-2)}
-.routes a::after{
-  content:'';position:absolute;left:.95em;right:.95em;bottom:.35em;height:1.5px;
-  background:var(--gold);transform:scaleX(0);transform-origin:left;
-  transition:transform .34s var(--ease);
-}
-.routes a:hover{color:var(--ink)}
-.routes a:hover::after{transform:scaleX(1)}
-.routes a[aria-current=page]{color:var(--ink)}
-.routes a[aria-current=page]::after{transform:scaleX(1);background:var(--gold-orn)}
-
-.station-act{display:flex;align-items:center;gap:.55rem;margin-left:auto}
-@media (min-width:1000px){.station-act{margin-left:calc(var(--tile) * .5)}}
-
-.glaze-btn,.burger{
-  width:calc(var(--tile) * .95);height:calc(var(--tile) * .95);
-  display:grid;place-items:center;flex:none;cursor:pointer;
-  background:transparent;border:1px solid var(--line);color:var(--ink-2);
-  transition:background .25s var(--ease),color .25s var(--ease),border-color .25s var(--ease);
-}
-.glaze-btn:hover,.burger:hover{background:var(--ink);color:var(--panel);border-color:var(--ink)}
-.glaze-btn svg,.burger svg{width:17px;height:17px}
-.glaze-btn .i-moon{display:none}
-[data-theme=dark] .glaze-btn .i-moon{display:block}
-[data-theme=dark] .glaze-btn .i-sun{display:none}
-@media (prefers-color-scheme:dark){
-  :root:not([data-theme=light]) .glaze-btn .i-moon{display:block}
-  :root:not([data-theme=light]) .glaze-btn .i-sun{display:none}
-}
-.burger{display:grid}
-@media (min-width:1000px){.burger{display:none}}
-/* two classes deep on purpose: .btn is declared later in this sheet and
-   would otherwise win the display race at equal specificity. */
-.station-act .station-cta{display:none}
-@media (min-width:620px){.station-act .station-cta{display:inline-flex}}
-
-/* the folded-out route list on narrow frames */
-.mobile-routes{
-  display:none;border-bottom:1px solid var(--line);background:var(--panel-2);
-}
-.mobile-routes.open{display:block}
-@media (min-width:1000px){.mobile-routes.open{display:none}}
-.mobile-routes-in{padding-block:calc(var(--tile) * .5);display:flex;flex-direction:column}
-/* :not(.btn) throughout — the CTA is also an <a> in here, and the route-link
-   rules (especially the [aria-current] one on /contact) would otherwise win on
-   specificity and paint cobalt text onto the cobalt button. */
-.mobile-routes a:not(.btn){
-  font-family:var(--display);font-weight:600;font-size:.82rem;text-transform:uppercase;
-  letter-spacing:.14em;text-decoration:none;color:var(--ink-2);
-  padding:.85em 0;border-bottom:1px solid var(--line-2);
-  display:flex;align-items:center;justify-content:space-between;
-}
-.mobile-routes a:not(.btn)[aria-current=page]{color:var(--ink)}
-.mobile-routes a:not(.btn)[aria-current=page]::after{content:'';width:8px;height:8px;background:var(--gold-orn);
-  clip-path:polygon(50% 0,100% 50%,50% 100%,0 50%)}
-.mobile-routes .btn{margin-top:calc(var(--tile) * .5)}
-
-.skip{
-  position:absolute;left:-9999px;top:0;z-index:100;
-  background:var(--ink);color:var(--panel);padding:.8em 1.4em;
-  font-family:var(--display);font-size:.75rem;letter-spacing:.14em;text-transform:uppercase;text-decoration:none;
-}
-.skip:focus{left:var(--tile);top:.5rem}
-
-/* ------------------------------------------------------------- 9. BUTTONS */
-.btn{
-  display:inline-flex;align-items:center;justify-content:center;gap:.7em;
-  font-family:var(--display);font-weight:600;font-size:.74rem;
-  text-transform:uppercase;letter-spacing:.16em;text-decoration:none;
-  padding:1.06em 1.85em;position:relative;cursor:pointer;
-  border:1.5px solid var(--ink);background:var(--ink);color:var(--panel);
-  transition:background .28s var(--ease),color .28s var(--ease);
-}
-.btn::before{content:'';position:absolute;inset:3px;border:1px solid currentColor;opacity:.42;pointer-events:none}
-.btn:hover{background:var(--ink-2);border-color:var(--ink-2)}
-.btn .arr{transition:transform .3s var(--ease)}
-.btn:hover .arr{transform:translateX(4px)}
-
-.btn-ghost{background:transparent;color:var(--ink);border-color:var(--line)}
-.btn-ghost:hover{background:var(--ink);color:var(--panel);border-color:var(--ink)}
-.btn-sm{padding:.82em 1.3em;font-size:.68rem}
-.btn-block{width:100%}
-
-.link-arrow{
-  display:inline-flex;align-items:center;gap:.55em;text-decoration:none;
-  font-family:var(--display);font-weight:600;font-size:.72rem;
-  text-transform:uppercase;letter-spacing:.15em;color:var(--ink);
-  border-bottom:1.5px solid var(--gold);padding-bottom:.42em;
-  transition:gap .3s var(--ease),color .25s var(--ease);
-}
-.link-arrow:hover{gap:.95em;color:var(--ink-2)}
-
-/* ---------------------------------------------------------------- 10. HERO */
-.hero{position:relative;border-bottom:1px solid var(--line);background:var(--panel-2);overflow:hidden}
-.hero-grid{display:grid;grid-template-columns:1fr}
-@media (min-width:960px){
-  .hero-grid{grid-template-columns:minmax(0,1fr) minmax(0,1.02fr);align-items:stretch}
-}
-.hero-copy{
-  padding-block:calc(var(--tile) * 2) calc(var(--tile) * 2.2);
-  display:flex;flex-direction:column;justify-content:center;
-  position:relative;
-}
-@media (min-width:960px){
-  .hero-copy{padding-block:calc(var(--tile) * 2.1);padding-right:calc(var(--tile) * 1.4)}
-}
-/* The headline is long, so it sets its own ceiling: the primary action has to
-   stay inside the first viewport on a 900px-tall desktop screen. */
-.hero h1{font-size:clamp(1.95rem,4.4vw,3.4rem)}
-.hero-badge{
-  align-self:flex-start;display:inline-flex;align-items:center;gap:.7rem;
-  padding:.62rem 1.1rem .62rem .8rem;margin-bottom:calc(var(--tile) * .85);
-}
-.hero-badge .pivot-mark{width:22px;height:22px;color:var(--ink)}
-.hero-badge span{
-  font-family:var(--display);font-weight:600;font-size:.6rem;
-  text-transform:uppercase;letter-spacing:.2em;color:var(--ink-2);
-}
-.hero h1 em{font-style:normal;color:var(--ink-2);position:relative;white-space:nowrap}
-.hero h1 em::after{
-  content:'';position:absolute;left:0;right:0;bottom:-.1em;height:2px;background:var(--gold);opacity:.85;
-}
-.hero-sub{margin-top:calc(var(--tile) * .6);max-width:40ch}
-.hero-cta{display:flex;flex-wrap:wrap;gap:.75rem;margin-top:calc(var(--tile) * 1)}
-.hero-slogan{
-  margin-top:calc(var(--tile) * 1.1);font-family:var(--display);font-weight:600;
-  font-size:.7rem;text-transform:uppercase;letter-spacing:.3em;color:var(--ink-3);
-  display:flex;align-items:center;gap:.9rem;
-}
-.hero-slogan::before{content:'';width:calc(var(--tile) * .9);height:1px;background:var(--line)}
-
-.hero-mural{position:relative;min-height:calc(var(--tile) * 8)}
-@media (max-width:959px){
-  .hero-mural{
-    min-height:calc(var(--tile) * 8.5);
-    margin-inline:calc(var(--gutter) * -1);
-    border-top:1px solid var(--line);
+/* The header is a band across the hall, not a column down its left edge:
+   heading and lead sit side by side so the width is actually used. The old
+   26ch cap applied to the wrapper, so it squeezed the lead too. */
+.sec-head{margin-bottom:clamp(1.6rem,3vw,2.6rem);max-width:none}
+.sec-head .lead{max-width:54ch;margin-bottom:0}
+.sec-head.center{margin-inline:auto;text-align:center;max-width:none}
+.sec-head.center h2{max-width:15em;margin-inline:auto}
+.sec-head.center .lead{margin-inline:auto}
+@media (min-width:900px){
+  /* measures for board caps are set in em of the heading's OWN size; a ch
+     here resolves against the body face and shatters the line. */
+  .sec-head:not(.center){
+    display:grid;grid-template-columns:minmax(0,1.06fr) minmax(0,1fr);
+    gap:clamp(1.6rem,4vw,4.5rem);align-items:end;
   }
+  .sec-head:not(.center) h2{max-width:11em}
 }
-@media (min-width:960px){
-  .hero-mural{margin-right:calc(var(--gutter) * -1);min-height:calc(var(--tile) * 13)}
-}
-.hero-mural .tilepic{position:absolute;inset:0}
-.hero-cartouche{
-  position:absolute;top:calc(var(--tile) * .6);right:calc(var(--tile) * .6);z-index:2;
-  padding:.75rem 1.15rem;text-align:center;max-width:calc(var(--tile) * 5.4);
-}
-.hero-cartouche b{
-  display:block;font-family:var(--display);font-weight:700;font-size:.68rem;
-  text-transform:uppercase;letter-spacing:.16em;color:var(--ink);
-}
-.hero-cartouche em{
-  display:block;font-style:normal;font-family:var(--display);font-size:.53rem;
-  text-transform:uppercase;letter-spacing:.2em;color:var(--ink-3);margin-top:.45em;
-}
-.hero-foot{border-top:1px solid var(--line)}
 
-/* page mastheads on the six inner routes */
-.masthead{
-  position:relative;border-bottom:1px solid var(--line);
-  background:var(--panel-2);padding-block:calc(var(--tile) * 2) calc(var(--tile) * 1.8);
-  overflow:hidden;
-}
-.masthead .padrao{position:absolute;inset:0;opacity:.09}
-/* Sized in tiles, not ch: a ch here resolves against the body face, which
-   made the box narrower than one word of the display face and clipped it. */
-.masthead-in{position:relative;max-width:min(100%,calc(var(--tile) * 16))}
-.masthead h1{font-size:clamp(1.85rem,4.4vw,3.25rem)}
-.masthead .lead{margin-top:calc(var(--tile) * .55);max-width:50ch}
-.crumb{
-  font-family:var(--display);font-weight:600;font-size:.63rem;text-transform:uppercase;
-  letter-spacing:.22em;color:var(--ink-3);margin:0 0 1.1em;
-}
-.crumb a{text-decoration:none;color:var(--ink-3)}
-.crumb a:hover{color:var(--ink)}
+.lead{font-size:clamp(1.06rem,.5vw + .95rem,1.24rem);line-height:1.58;color:var(--paint-2);margin-top:.9em}
 
-/* ------------------------------------------------------------- 11. PANELS */
-.grid-3{display:grid;gap:calc(var(--tile) * .7);grid-template-columns:1fr}
-@media (min-width:640px){.grid-3{grid-template-columns:repeat(2,1fr)}}
-@media (min-width:980px){.grid-3{grid-template-columns:repeat(3,1fr)}}
-.grid-2{display:grid;gap:calc(var(--tile) * .7);grid-template-columns:1fr}
-@media (min-width:760px){.grid-2{grid-template-columns:repeat(2,1fr)}}
+/* -------------------------------------------------------- 5. MATERIALS */
 
-.card{display:flex;flex-direction:column}
-.card .card-body{padding:calc(var(--tile) * 1)}
-.card h3{margin-bottom:.7em}
-.card p{color:var(--ink-2);font-size:.98em}
-.card .card-figure{aspect-ratio:4/3;position:relative}
-.card .link-arrow{margin-top:auto;align-self:flex-start}
-.card-body>.link-arrow{margin-top:calc(var(--tile) * .6)}
+/* The steel rail. Closes a band the way the board's frame closes the board. */
+.rail{height:var(--rail);background:var(--brushed);position:relative}
+.rail-gap{margin-top:clamp(2rem,4vw,3.4rem)}
+.rail::after{content:'';position:absolute;inset:0;background:linear-gradient(90deg,rgba(0,0,0,.45),transparent 12%,transparent 88%,rgba(0,0,0,.45))}
 
-.emblem{
-  width:calc(var(--tile) * 1.55);height:calc(var(--tile) * 1.55);
-  display:grid;place-items:center;border:1px solid var(--line);
-  margin-bottom:calc(var(--tile) * .6);position:relative;color:var(--ink);
+/* The frame: brushed steel with a screw at each end. Elevation is declared
+   once, here, as the frame — no shadow is ever stacked under it. */
+.frame{padding:var(--frame);background:var(--brushed);border-radius:var(--r);position:relative}
+.frame > *{border-radius:1px}
+/* four screws, sunk into the steel at the corners of the surround */
+@media (min-width:760px){
+  .frame{background:
+    radial-gradient(circle at 5.5px 5.5px,#F0F2F5 0 1.4px,#767C85 1.4px 2.9px,#2F3239 2.9px 3.3px,transparent 3.4px),
+    radial-gradient(circle at calc(100% - 5.5px) 5.5px,#F0F2F5 0 1.4px,#767C85 1.4px 2.9px,#2F3239 2.9px 3.3px,transparent 3.4px),
+    radial-gradient(circle at 5.5px calc(100% - 5.5px),#F0F2F5 0 1.4px,#767C85 1.4px 2.9px,#2F3239 2.9px 3.3px,transparent 3.4px),
+    radial-gradient(circle at calc(100% - 5.5px) calc(100% - 5.5px),#F0F2F5 0 1.4px,#767C85 1.4px 2.9px,#2F3239 2.9px 3.3px,transparent 3.4px),
+    var(--brushed)}
 }
-.emblem::before{content:'';position:absolute;inset:4px;border:1px solid var(--ink);opacity:.28}
-.emblem svg{width:52%;height:52%;fill:none;stroke:currentColor;stroke-width:1.5;
+/* Panels carry the flap ground themselves, so the steel keeps showing
+   through every gap in a framed assembly. */
+.hero-copy,.board-panel,.pad,.scene-body,.figure,.voice,.pane{background:var(--flap)}
+
+/* The flap face: an upper half in the hall light, a lower half in the
+   hinge's shadow, and the hinge line dead across the middle. */
+.faced{background:var(--board)}
+
+/* ------------------------------------------------------ 6. FLAP LETTERS */
+/* Board voice. Without JS the text renders as tracked caps and reads
+   perfectly; .js splits it into character cells, and the cells are the world. */
+.flap{font-family:var(--board-face);font-weight:700;text-transform:uppercase;letter-spacing:.14em;line-height:1.16}
+/* The field of empty flaps the headline sits in. Its pitch is the cell
+   plus its seam, so the painted cells land exactly on the field's grid
+   and the unused flaps to the right of a short line stay visible. */
+html.js .flap{
+  letter-spacing:0;display:flex;flex-wrap:wrap;gap:2px;
+  --cw:calc(.68em + 2px);--ch:calc(1.2em + 2px);
+  background-image:
+    linear-gradient(90deg,transparent 0 calc(100% - 2px),#000 calc(100% - 2px)),
+    linear-gradient(180deg,transparent 0 calc(100% - 2px),#000 calc(100% - 2px)),
+    linear-gradient(180deg,#101013 0 calc(50% - 2px),#08080A calc(50% - 2px) 50%,#0A0A0C 50% 100%);
+  background-size:var(--cw) var(--ch);
+}
+html.js .flap .ln{display:flex;flex-wrap:wrap;gap:2px;width:100%}
+html.js .flap .cell{
+  display:grid;place-items:center;font-style:normal;
+  inline-size:.68em;block-size:1.2em;
+  background:var(--board);
+  box-shadow:inset 0 0 0 1px #000,inset 0 1px 0 rgba(255,255,255,.05);
+  position:relative;overflow:hidden;
+}
+html.js .flap .cell::before,html.js .flap .cell::after{
+  content:'';position:absolute;top:calc(50% - 2px);width:2px;height:4px;background:#2E3036;z-index:2}
+html.js .flap .cell::before{left:0}
+html.js .flap .cell::after{right:0}
+html.js .flap .cell > span{display:block;transform:translateY(-.02em)}
+html.js .flap .cell.sp{background:linear-gradient(180deg,#101013 0 calc(50% - 1px),#08080A calc(50% - 1px) calc(50% + 1px),#0A0A0C calc(50% + 1px) 100%)}
+
+/* Sized so the longest authored line fills its panel exactly: the board
+   look comes from cells spanning the frame, not from raw type size. */
+.flap-lg{font-size:clamp(1.5rem,4.4vw,3.8rem)}
+.flap-sm{font-size:clamp(1.22rem,2.9vw,2.3rem)}
+
+/* ----------------------------------------------------------- 7. STATION */
+.station{position:sticky;top:0;z-index:100;background:#0A0A0C;border-bottom:var(--rail) solid #6E747D}
+.station-bar{display:flex;align-items:center;gap:clamp(.8rem,2vw,2rem);min-height:62px}
+
+.brand{display:inline-flex;align-items:center;gap:.6rem;text-decoration:none;flex:none}
+.brand-mark{width:26px;height:26px;flex:none;color:var(--amber)}
+.brand-name{font-family:var(--board-face);font-weight:700;font-size:1.16rem;text-transform:uppercase;letter-spacing:.2em;line-height:1}
+.brand-sub{display:block;font-family:var(--board-face);font-weight:500;font-size:.56rem;text-transform:uppercase;
+  letter-spacing:.24em;color:var(--paint-3);margin-top:.28rem}
+
+.routes{display:none;gap:clamp(1rem,2vw,1.9rem);margin-inline-start:auto}
+@media (min-width:1000px){.routes{display:flex}}
+.routes a{font-family:var(--board-face);font-weight:600;font-size:.78rem;text-transform:uppercase;letter-spacing:.14em;
+  color:var(--paint-2);text-decoration:none;padding:.5rem 0;position:relative;white-space:nowrap;transition:color .2s ease}
+.routes a:hover{color:var(--paint)}
+.routes a[aria-current=page]{color:var(--amber)}
+.routes a[aria-current=page]::after{content:'';position:absolute;left:0;right:0;bottom:.1rem;height:2px;background:var(--amber)}
+
+.station-act{display:flex;align-items:center;gap:.6rem;margin-inline-start:auto}
+@media (min-width:1000px){.station-act{margin-inline-start:0}}
+@media (max-width:520px){.station-cta{display:none}}
+
+.burger{width:40px;height:36px;display:grid;place-items:center;background:transparent;border:1px solid var(--steel-4);
+  border-radius:var(--r);color:var(--paint-2);cursor:pointer;padding:0}
+.burger svg{width:20px;height:20px}
+.burger:hover{border-color:var(--steel-2);color:var(--paint)}
+@media (min-width:1000px){.burger{display:none}}
+
+.mobile-routes{display:grid;grid-template-rows:0fr;transition:grid-template-rows .38s var(--ease);background:#08080A;
+  border-bottom:1px solid transparent}
+.mobile-routes.open{grid-template-rows:1fr;border-bottom-color:var(--steel-3)}
+.mobile-routes-in{overflow:hidden;min-height:0;display:flex;flex-direction:column}
+.mobile-routes.open .mobile-routes-in{padding-block:.5rem 1.1rem}
+/* :not(.btn) throughout — the CTA is also an <a> in here, and these rules
+   would otherwise win on specificity and paint it amber on amber (1.48:1). */
+.mobile-routes a:not(.btn){font-family:var(--board-face);font-weight:600;text-transform:uppercase;letter-spacing:.14em;font-size:.9rem;
+  color:var(--paint-2);text-decoration:none;padding:.85rem 0;border-top:1px solid var(--steel-3)}
+.mobile-routes a:not(.btn):first-child{border-top:0}
+.mobile-routes a:not(.btn)[aria-current=page]{color:var(--amber)}
+.mobile-routes .btn{margin-top:.9rem;border-top:0}
+@media (min-width:1000px){.mobile-routes{display:none}}
+
+/* ---------------------------------------------------------- 8. CONTROLS */
+.btn{
+  display:inline-flex;align-items:center;justify-content:center;gap:.7rem;
+  font-family:var(--board-face);font-weight:700;font-size:.82rem;text-transform:uppercase;letter-spacing:.15em;
+  padding:.86rem 1.5rem;border:1.5px solid var(--amber);border-radius:var(--r);
+  background:var(--amber);color:#140E00;text-decoration:none;cursor:pointer;white-space:nowrap;
+  transition:background-color .18s ease,color .18s ease,border-color .18s ease;
+}
+.btn:hover{background:#FFC638;border-color:#FFC638}
+.btn:active{background:#E6A200;border-color:#E6A200}
+.btn .arr{transition:transform .22s var(--ease)}
+.btn:hover .arr{transform:translateX(3px)}
+.btn-sm{padding:.6rem 1rem;font-size:.72rem;letter-spacing:.13em}
+.btn-block{width:100%}
+.btn-ghost{background:transparent;color:var(--amber)}
+.btn-ghost:hover{background:rgba(255,180,0,.1);border-color:#FFC638;color:#FFC638}
+
+.link-arrow{display:inline-flex;align-items:center;gap:.5rem;font-family:var(--board-face);font-weight:700;
+  font-size:.78rem;text-transform:uppercase;letter-spacing:.14em;color:var(--amber);text-decoration:none;
+  padding-bottom:2px;border-bottom:1.5px solid transparent;transition:gap .22s var(--ease),border-color .18s ease}
+.link-arrow:hover{gap:.8rem;border-bottom-color:var(--amber)}
+
+/* ------------------------------------------------------------- 9. HERO */
+.hero{padding-block:clamp(1.2rem,2.4vw,2.2rem) 0}
+.hero-assembly{display:grid;gap:var(--frame);grid-template-columns:1fr}
+@media (min-width:980px){.hero-assembly{grid-template-columns:minmax(0,1.42fr) minmax(0,1fr)}}
+
+.hero-copy{padding:clamp(1.5rem,3.4vw,3rem);display:flex;flex-direction:column;justify-content:center}
+.hero-copy h1{margin-bottom:clamp(1.2rem,2.4vw,2rem)}
+/* The board voice is for board text. A sentence a worried parent reads at
+   11pm is a printed notice, not a departure row: sentence case, regular
+   width, real line-height. */
+.hero-sub{font-family:var(--notice);font-weight:400;font-size:clamp(1.02rem,.5vw + .92rem,1.17rem);
+  letter-spacing:0;line-height:1.62;color:var(--paint-2);max-width:44ch;margin:0 0 clamp(1.4rem,2.6vw,2rem)}
+.hero-act{display:flex;flex-wrap:wrap;gap:.75rem;align-items:center}
+.hero-slogan{margin:clamp(1.4rem,2.6vw,2.1rem) 0 0;font-family:var(--board-face);font-weight:700;font-size:.76rem;
+  text-transform:uppercase;letter-spacing:.3em;color:var(--paint-3)}
+
+/* -------------------------------------------------------- 10. THE BOARD */
+/* Rows are live entities ranked by relevance. Columns never move. */
+.board-panel{padding:clamp(1rem,1.6vw,1.35rem);display:flex;flex-direction:column}
+.board-head{display:flex;align-items:baseline;justify-content:space-between;gap:1rem;margin-bottom:.85rem}
+.board-title{font-family:var(--board-face);font-weight:700;font-size:.78rem;text-transform:uppercase;letter-spacing:.24em;color:var(--paint)}
+.board-clock{font-family:var(--board-face);font-weight:600;font-size:.66rem;text-transform:uppercase;letter-spacing:.16em;color:var(--paint-3)}
+
+.board{width:100%;border-collapse:separate;border-spacing:0 2px;font-family:var(--board-face);font-variant-numeric:tabular-nums}
+.board th{font-weight:600;font-size:.6rem;text-transform:uppercase;letter-spacing:.19em;color:var(--paint-3);
+  text-align:left;padding:0 .7rem .45rem;border-bottom:1px solid var(--steel-3)}
+.board th:last-child{text-align:right}
+.board td{background:var(--board);padding:.72rem .7rem;vertical-align:middle;border-block:1px solid #000}
+.board td:first-child{border-inline-start:1px solid #000}
+.board td:last-child{border-inline-end:1px solid #000;text-align:right}
+.board .svc{display:block;font-weight:700;font-size:.86rem;text-transform:uppercase;letter-spacing:.07em;
+  color:var(--paint);line-height:1.25;text-decoration:none;transition:color .18s ease}
+a.svc:hover{color:var(--amber)}
+.board .for{display:block;font-weight:500;font-size:.7rem;text-transform:uppercase;letter-spacing:.1em;
+  color:var(--paint-3);line-height:1.3;margin-top:.22rem}
+
+/* the lit row: the next departure is the free conversation, always */
+.board tr.next td{background:linear-gradient(180deg,#241A00 0 calc(50% - 1px),#0D0900 calc(50% - 1px) calc(50% + 1px),#1A1300 calc(50% + 1px) 100%)}
+.board tr.next .svc{color:var(--amber)}
+.board tr.next .for{color:#C9A055}
+.board tr.next td:first-child{border-inline-start:2px solid var(--amber)}
+
+.status{display:inline-block;font-weight:700;font-size:.64rem;text-transform:uppercase;letter-spacing:.15em;
+  padding:.34rem .6rem;border:1px solid var(--steel-4);border-radius:var(--r);color:var(--paint-2);white-space:nowrap}
+.status-live{border-color:var(--amber);color:var(--amber)}
+.status-open{border-color:var(--steel-2);color:var(--paint)}
+.status-tba{border-color:var(--amber);color:var(--amber);border-style:dashed}
+.status-off{border-color:#5A2422;color:var(--red-txt)}
+
+/* How to read this board. It sits at the foot of the panel and teaches
+   the two states the visitor has to trust: what is live, what is not. */
+.board-legend{margin-top:auto;padding-top:1.1rem;display:grid;gap:.55rem}
+.board-legend span{display:flex;align-items:center;gap:.6rem;font-family:var(--board-face);font-weight:500;
+  font-size:.65rem;text-transform:uppercase;letter-spacing:.11em;color:var(--paint-3);line-height:1.35}
+.key{width:14px;height:14px;flex:none;border-radius:1px}
+.key-live{background:var(--amber)}
+.key-tba{border:1px dashed var(--amber)}
+
+/* --------------------------------------------------- 11. CALLING POINTS */
+/* The strip that closes the hero band, and the four-stop route elsewhere. */
+.strip{display:flex;flex-wrap:wrap;align-items:center;gap:clamp(.9rem,2.4vw,2.2rem);
+  padding:.95rem clamp(1rem,2vw,1.4rem);background:var(--board);border-radius:var(--r)}
+.hero-assembly .strip{grid-column:1/-1}
+.strip-item{display:flex;align-items:center;gap:.65rem}
+.strip-item svg{width:19px;height:19px;flex:none;color:var(--amber);stroke:currentColor;fill:none;stroke-width:1.75;
   stroke-linecap:round;stroke-linejoin:round}
+.strip-item b{display:block;font-family:var(--board-face);font-weight:700;font-size:.7rem;text-transform:uppercase;
+  letter-spacing:.15em;color:var(--paint);line-height:1.3}
+.strip-item span{display:block;font-family:var(--board-face);font-weight:500;font-size:.63rem;text-transform:uppercase;
+  letter-spacing:.13em;color:var(--paint-3);line-height:1.3}
+.strip-status{margin-inline-start:auto;display:flex;align-items:center;gap:.55rem;font-family:var(--board-face);
+  font-weight:600;font-size:.65rem;text-transform:uppercase;letter-spacing:.15em;color:var(--paint-3)}
+.lamp{width:8px;height:8px;border-radius:50%;background:var(--green);box-shadow:0 0 7px rgba(91,208,122,.7);flex:none}
 
-/* the two-service panels: painted scene beside its reading */
-.scene{display:grid;gap:0;grid-template-columns:1fr;align-items:stretch}
-@media (min-width:860px){
-  .scene{grid-template-columns:minmax(0,.86fr) minmax(0,1.14fr)}
+/* ------------------------------------------------------- 12. PLATE (IMG) */
+/* A photograph is not pasted onto the board, it is seen through the
+   concourse glass: dimmed, cooled, and rail-capped. */
+.plate{position:relative;overflow:hidden;background:#08080A}
+/* Lit like the hall, not like a basement. The old brightness(.6) under a
+   scrim on both edges left no readable subject in any photograph. */
+.plate img{width:100%;height:100%;object-fit:cover;filter:grayscale(.34) contrast(1.1) brightness(.82);display:block}
+.plate::after{content:'';position:absolute;inset:0;pointer-events:none;
+  background:linear-gradient(90deg,rgba(8,8,10,.55),rgba(8,8,10,0) 42%,rgba(8,8,10,.34))}
+.plate-wide{aspect-ratio:21/6}
+@media (max-width:760px){.plate-wide{aspect-ratio:16/9}}
+.plate-caption{position:absolute;left:0;right:0;bottom:0;z-index:2;display:flex;flex-wrap:wrap;gap:.5rem 1.4rem;
+  padding:.8rem clamp(1rem,2vw,1.6rem);background:linear-gradient(180deg,transparent,rgba(8,8,10,.9))}
+.plate-caption span{font-family:var(--board-face);font-weight:600;font-size:.64rem;text-transform:uppercase;
+  letter-spacing:.18em;color:var(--paint-2)}
+
+/* ------------------------------------------------------------ 13. ROWS */
+/* The board's answer to a row of cards: one framed module divided by
+   hairlines into rows of unequal weight. Cards are not the structure here. */
+.module{border:1px solid var(--steel-3);border-radius:var(--r);background:#0A0A0C;overflow:hidden}
+.module-head{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:.8rem;
+  padding:.85rem clamp(.9rem,1.6vw,1.3rem);background:var(--board);border-bottom:1px solid var(--steel-3)}
+.module-head h2,.module-head h3{font-size:.82rem;letter-spacing:.17em}
+
+.rows{display:grid}
+.rows > li,.rows > .row{display:grid;gap:.35rem .9rem;padding:clamp(1rem,1.9vw,1.5rem) clamp(.9rem,1.6vw,1.3rem);
+  border-top:1px solid var(--steel-3)}
+.rows > li:first-child,.rows > .row:first-child{border-top:0}
+@media (min-width:800px){
+  .rows.rows-keyed > li,.rows.rows-keyed > .row{grid-template-columns:minmax(0,15rem) minmax(0,1fr);align-items:start}
+}
+.row-k{font-family:var(--board-face);font-weight:700;font-size:.8rem;text-transform:uppercase;letter-spacing:.15em;color:var(--paint)}
+.row-v{color:var(--paint-2);max-width:66ch}
+.row-v p{margin-bottom:.7em}
+.row-v > :last-child{margin-bottom:0}
+
+/* the calling-point rail: this service calls at four stops, in order */
+.calls{display:grid;gap:0}
+.call{display:grid;grid-template-columns:auto minmax(0,1fr);gap:0 clamp(1rem,2vw,1.6rem)}
+.call-mark{position:relative;width:40px;display:flex;justify-content:center}
+.call-mark::before{content:'';position:absolute;top:0;bottom:0;left:calc(50% - 1px);width:2px;background:var(--steel-3)}
+.call:first-child .call-mark::before{top:1.05rem}
+.call:last-child .call-mark::before{bottom:calc(100% - 1.05rem)}
+.call-dot{position:relative;z-index:2;width:15px;height:15px;border-radius:50%;background:var(--flap);
+  border:2.5px solid var(--steel-2);margin-top:.34rem}
+.call.is-first .call-dot{border-color:var(--amber);background:var(--amber)}
+.call-body{padding-bottom:clamp(1.6rem,3vw,2.6rem)}
+.call:last-child .call-body{padding-bottom:0}
+
+/* Wide enough for the whole route to be read at once, the calling points
+   turn and run left to right, the way the line is drawn on a carriage
+   diagram. Below that they stack and the rail runs down the margin. */
+@media (min-width:920px){
+  .calls{grid-template-columns:repeat(4,minmax(0,1fr));gap:0 clamp(1.2rem,2.4vw,2.2rem)}
+  .call{grid-template-columns:minmax(0,1fr);gap:0}
+  .call-mark{width:auto;justify-content:flex-start;height:15px;margin-bottom:1.15rem}
+  .call-mark::before{top:calc(50% - 1px);bottom:auto;left:0;right:calc(-1 * clamp(1.2rem,2.4vw,2.2rem));width:auto;height:2px}
+  .call:first-child .call-mark::before{left:7px;top:calc(50% - 1px)}
+  .call:last-child .call-mark::before{right:auto;width:7px;bottom:auto}
+  .call-dot{margin-top:0}
+  .call-body{padding-bottom:0}
+}
+.call-n{font-family:var(--board-face);font-weight:700;font-size:.66rem;text-transform:uppercase;letter-spacing:.22em;
+  color:var(--amber);display:block;margin-bottom:.45rem}
+.call-body h3{margin-bottom:.6rem}
+.call-body p{color:var(--paint-2);max-width:64ch}
+
+/* the two-panel split used for services and commitments */
+.split{display:grid;gap:var(--frame)}
+@media (min-width:880px){.split{grid-template-columns:1fr 1fr}}
+.pad{padding:clamp(1.3rem,2.6vw,2.1rem)}
+.pad > h2,.pad > h3{margin-bottom:.9rem}
+.pad p{color:var(--paint-2)}
+.pad .lead{margin-top:0}
+
+/* a scene: photograph plate butted against a text panel */
+.scene{display:grid;gap:var(--frame)}
+@media (min-width:880px){
+  .scene{grid-template-columns:minmax(0,.85fr) minmax(0,1.15fr);align-items:stretch}
   .scene.flip .scene-fig{order:2}
 }
-.scene+.scene{margin-top:calc(var(--tile) * .7)}
-.scene-fig{position:relative;min-height:calc(var(--tile) * 7);border-right:1px solid var(--line)}
-@media (max-width:859px){.scene-fig{border-right:0;border-bottom:1px solid var(--line);aspect-ratio:16/10;min-height:0}}
-@media (min-width:860px){.scene.flip .scene-fig{border-right:0;border-left:1px solid var(--line)}}
-.scene-fig .tilepic,.scene-fig .padrao{position:absolute;inset:0}
-.scene-fig .padrao{opacity:.2}
-.scene-num{
-  position:absolute;left:0;top:0;z-index:2;
-  font-family:var(--display);font-weight:700;font-size:.72rem;letter-spacing:.16em;
-  background:var(--ink);color:var(--panel);padding:.65em 1.05em;
-}
-.scene-body{padding:calc(var(--tile) * 1.1)}
-@media (min-width:860px){.scene-body{padding:calc(var(--tile) * 1.5)}}
-.scene-body h3{font-size:clamp(1.2rem,1.8vw,1.6rem);margin-bottom:.75em}
-.points{list-style:none;margin:calc(var(--tile) * .7) 0;padding:0;display:grid;gap:.6em}
-.points li{position:relative;padding-left:1.9em;color:var(--ink-2);font-size:.97em}
-.points li::before{
-  content:'';position:absolute;left:0;top:.62em;width:9px;height:9px;background:var(--gold-orn);
-  clip-path:polygon(50% 0,100% 50%,50% 100%,0 50%);
-}
+.scene-fig{position:relative;min-height:280px}
+.scene-fig .plate{position:absolute;inset:0}
+@media (max-width:879px){.scene-fig{min-height:0}.scene-fig .plate{position:relative;aspect-ratio:16/10}}
+.scene-body{padding:clamp(1.4rem,2.8vw,2.3rem)}
+.scene-body h2,.scene-body h3{margin-bottom:.85rem}
+.scene-body p{color:var(--paint-2);max-width:62ch}
 
-/* ------------------------------------------------------- 12. WALKED STEPS */
-/* Borders are section breaks; the method is walked in order, panel to panel. */
-.walk{list-style:none;margin:0;padding:0;display:grid;gap:calc(var(--tile) * .7);grid-template-columns:1fr}
-@media (min-width:620px){.walk{grid-template-columns:repeat(2,1fr)}}
-@media (min-width:1040px){.walk{grid-template-columns:repeat(4,1fr)}}
-.walk li{padding:calc(var(--tile) * 1)}
-/* the numbered plate; used inside the walk and in any panel that counts */
-.step-n{
-  display:inline-grid;place-items:center;width:2.6em;height:2.6em;margin-bottom:.9em;
-  font-family:var(--display);font-weight:700;font-size:.82rem;letter-spacing:.06em;
-  border:1px solid var(--line);color:var(--ink);position:relative;
-}
-.step-n::before{content:'';position:absolute;inset:3px;border:1px solid var(--ink);opacity:.25}
-.walk h3{margin-bottom:.6em}
-.walk p{color:var(--ink-2);font-size:.96em;margin:0}
+/* the checklist: a departure's calling points, ticked */
+.points{margin:1.2rem 0 0;display:grid;gap:0;border-top:1px solid var(--steel-3)}
+.points li{position:relative;padding:.72rem 0 .72rem 1.7rem;border-bottom:1px solid var(--steel-3);
+  color:var(--paint-2);font-size:.96rem}
+.points li::before{content:'';position:absolute;left:0;top:1.18rem;width:7px;height:7px;background:var(--amber)}
 
-/* --------------------------------------------------------- 13. QUOTE BAND */
-.band{
-  position:relative;background:var(--band-bg);color:var(--band-ink);
-  padding-block:calc(var(--tile) * 2.2);overflow:hidden;
-  border-block:1px solid var(--band-bg);
-}
-.band .padrao{position:absolute;inset:0;background:var(--band-ink);opacity:.13}
-.band-in{position:relative;text-align:center;max-width:26ch;margin-inline:auto}
-.band blockquote{
-  margin:0;font-family:var(--display);font-weight:600;
-  font-size:clamp(1.35rem,3vw,2.35rem);line-height:1.28;
-  text-transform:uppercase;letter-spacing:.03em;
-}
-.band blockquote em{font-style:normal;color:var(--band-accent)}
-.band .fleuron{background:var(--band-ink);opacity:.55;margin:0 auto calc(var(--tile) * .7)}
+/* ---------------------------------------------------------- 14. MASTHEAD */
+.masthead{position:relative;padding-block:clamp(2.4rem,5vw,4.2rem);background:var(--board);border-bottom:1px solid #000}
+.crumb{font-family:var(--board-face);font-weight:600;font-size:.66rem;text-transform:uppercase;letter-spacing:.2em;
+  color:var(--paint-3);margin:0 0 1.1rem}
+.crumb a{color:var(--paint-2);text-decoration:none}
+.crumb a:hover{color:var(--amber)}
+/* Flap measures are set in em of the heading's OWN size. A ch resolves
+   against the body face, and on a cell-split board heading it shatters
+   the line mid-word — which is exactly what 20ch did here. */
+.masthead h1{max-width:27em}
+.masthead .lead{max-width:60ch}
 
-/* ------------------------------------------- 14. UNPAINTED / UNFIRED TILES */
-/* The hall's own state for content that has not been painted yet.
-   Everything inside is illustrative and is NOT a published claim. */
-.unfired{position:relative;border-style:dashed;border-color:var(--ink-3)}
-.unfired::before{border-style:dashed;opacity:.22}
-.unfired .unfired-tag{
-  position:absolute;top:0;right:0;z-index:3;
-  font-family:var(--display);font-weight:600;font-size:.53rem;
-  text-transform:uppercase;letter-spacing:.16em;
-  background:var(--gold-orn);color:#20180A;padding:.5em .8em;
-}
-/* Display figures read fine as outline: at 50px they are a graphic, and the
-   hollow letterform is the clearest possible "not fired yet". Body copy does
-   NOT survive the same treatment, so an unpainted quote keeps solid ink and
-   is marked by its dashed frame, its tag and its note instead. */
-.unfired .stat-num{color:transparent;-webkit-text-stroke:1.4px var(--ink-3)}
-.unfired blockquote{color:var(--ink-3)}
-.unfired-note{
-  display:flex;align-items:flex-start;gap:.7em;
-  margin-top:calc(var(--tile) * .8);padding-top:calc(var(--tile) * .5);
-  border-top:1px solid var(--line-2);
-  font-size:.83rem;line-height:1.55;color:var(--ink-3);font-style:italic;
-}
-.unfired-note b{font-style:normal;color:var(--ink-2)}
-.note-center{max-width:64ch;margin-inline:auto;justify-content:center}
+/* ------------------------------------------------------------- 15. BAND */
+.band{position:relative;padding-block:clamp(3rem,6vw,5rem);background:#08080A;border-block:1px solid var(--steel-3)}
+.band blockquote{margin:0;font-family:var(--board-face);font-weight:700;text-transform:uppercase;
+  font-size:clamp(1.35rem,3.1vw,2.5rem);line-height:1.2;letter-spacing:.05em;max-width:15em;color:var(--paint)}
+.band blockquote em{font-style:normal;color:var(--amber)}
 
-.figures{display:grid;gap:calc(var(--tile) * .7);grid-template-columns:1fr}
-@media (min-width:640px){.figures{grid-template-columns:repeat(3,1fr)}}
-.figure-tile{padding:calc(var(--tile) * 1) calc(var(--tile) * .9);text-align:center}
-.stat-num{
-  display:block;font-family:var(--display);font-weight:700;
-  font-size:clamp(2.1rem,4.4vw,3.2rem);line-height:1;
-  font-variant-numeric:tabular-nums lining-nums;
-}
-.stat-label{
-  display:block;margin-top:.9em;font-family:var(--display);font-weight:600;
-  font-size:.63rem;text-transform:uppercase;letter-spacing:.18em;color:var(--ink-2);line-height:1.6;
-}
+/* --------------------------------------------------------- 16. HONESTY */
+/* The board's own missing-content state. A departure with nothing
+   confirmed reads TBA, and the notice under it says so in plain words. */
+.tba{border:1px dashed #5A4200}
+.tba-tag{display:inline-block;font-family:var(--board-face);font-weight:700;font-size:.62rem;text-transform:uppercase;
+  letter-spacing:.2em;color:var(--amber);border:1px dashed var(--amber);border-radius:var(--r);padding:.3rem .55rem;margin-bottom:.9rem}
+.note{display:flex;gap:.7rem;font-family:var(--notice);font-size:.86rem;line-height:1.55;color:var(--paint-3);
+  margin:1.1rem 0 0;max-width:74ch}
+.note::before{content:'';flex:none;width:3px;background:var(--amber);border-radius:2px}
+.note b{color:var(--paint-2);font-weight:600}
+.note-center{margin-inline:auto}
+.ph{border-bottom:1px dashed var(--amber)}
+.ph-note{font-family:var(--board-face);font-weight:600;font-size:.62rem;text-transform:uppercase;letter-spacing:.16em;
+  color:var(--amber);margin:.4rem 0 0}
 
-.voices{display:grid;gap:calc(var(--tile) * .7);grid-template-columns:1fr}
-@media (min-width:760px){.voices{grid-template-columns:repeat(3,1fr)}}
-.voice{margin:0;padding:calc(var(--tile) * 1)}
-.voice blockquote{
-  margin:0 0 calc(var(--tile) * .7);font-size:1.05em;line-height:1.6;font-style:italic;
-}
-.voice figcaption{display:flex;flex-direction:column;gap:.25em;padding-top:calc(var(--tile) * .5);
-  border-top:1px solid var(--line-2)}
-.v-name{font-family:var(--display);font-weight:600;font-size:.72rem;text-transform:uppercase;letter-spacing:.15em}
-.v-role{font-size:.85rem;color:var(--ink-3)}
+.figures{display:grid;gap:var(--rail);grid-template-columns:1fr}
+@media (min-width:720px){.figures{grid-template-columns:repeat(3,1fr)}}
+.figure{padding:clamp(1.2rem,2.4vw,1.9rem);text-align:center}
+.figure b{display:block;font-family:var(--board-face);font-weight:700;font-size:clamp(2.4rem,5vw,3.6rem);
+  line-height:1;letter-spacing:.02em;font-variant-numeric:tabular-nums;color:var(--paint)}
+.figure.tba b{color:transparent;-webkit-text-stroke:2.2px var(--amber)}
+.figure > span{display:block;font-family:var(--board-face);font-weight:600;font-size:.68rem;text-transform:uppercase;
+  letter-spacing:.16em;color:var(--paint-3);margin-top:.7rem}
 
-/* ---------------------------------------------------------------- 15. FORM */
-.contact-grid{display:grid;gap:calc(var(--tile) * .7);grid-template-columns:1fr}
-@media (min-width:900px){.contact-grid{grid-template-columns:minmax(0,.85fr) minmax(0,1.15fr)}}
+.voices{display:grid;gap:var(--rail);grid-template-columns:1fr}
+@media (min-width:860px){.voices{grid-template-columns:repeat(3,1fr)}}
+.voice{padding:clamp(1.2rem,2.4vw,1.8rem);display:flex;flex-direction:column;gap:1rem}
+.voice blockquote{margin:0;color:var(--paint-2);font-size:1rem;line-height:1.55}
+.voice figcaption{margin-top:auto;font-family:var(--board-face);font-weight:600;font-size:.66rem;text-transform:uppercase;
+  letter-spacing:.16em;color:var(--paint-3);display:grid;gap:.2rem}
+.voice .v-name{color:var(--paint-2)}
 
-.detail-list{list-style:none;margin:calc(var(--tile) * .9) 0 0;padding:0;display:grid;gap:0}
-.detail-list li{
-  display:flex;flex-wrap:wrap;gap:.35em 1rem;align-items:baseline;
-  padding-block:.85em;border-top:1px solid var(--line-2);
-}
-.detail-list li:last-child{border-bottom:1px solid var(--line-2)}
-.dl-k{
-  font-family:var(--display);font-weight:600;font-size:.6rem;text-transform:uppercase;
-  letter-spacing:.2em;color:var(--ink-3);flex:none;width:6.5em;
-}
-.detail-list a{color:var(--ink);text-decoration-color:var(--line);text-underline-offset:.22em}
-.detail-list a:hover{text-decoration-color:var(--gold)}
+/* ------------------------------------------------------------- 17. FORM */
+.contact-grid{display:grid;gap:var(--frame)}
+@media (min-width:920px){.contact-grid{grid-template-columns:minmax(0,1fr) minmax(0,1.1fr);align-items:start}}
 
-.form-grid{display:grid;gap:calc(var(--tile) * .55)}
-.f-row{display:grid;gap:calc(var(--tile) * .55);grid-template-columns:1fr}
+.detail-list{display:grid;border-top:1px solid var(--steel-3);margin-top:1.2rem}
+.detail-list li{display:grid;gap:.15rem;padding:.85rem 0;border-bottom:1px solid var(--steel-3)}
+@media (min-width:520px){.detail-list li{grid-template-columns:7.5rem minmax(0,1fr);align-items:baseline;gap:1rem}}
+.dl-k{font-family:var(--board-face);font-weight:600;font-size:.64rem;text-transform:uppercase;letter-spacing:.19em;color:var(--paint-3)}
+.detail-list a{color:var(--paint);text-decoration:none}
+.detail-list a:hover{color:var(--amber)}
+
+.form-grid{display:grid;gap:1rem}
+.f-row{display:grid;gap:1rem}
 @media (min-width:560px){.f-row{grid-template-columns:1fr 1fr}}
-.field{display:flex;flex-direction:column;gap:.55em}
-.field>span{
-  font-family:var(--display);font-weight:600;font-size:.6rem;
-  text-transform:uppercase;letter-spacing:.2em;color:var(--ink-2);
-}
+.field{display:grid;gap:.4rem}
+.field > span{font-family:var(--board-face);font-weight:600;font-size:.64rem;text-transform:uppercase;letter-spacing:.17em;color:var(--paint-3)}
 .field input,.field select,.field textarea{
-  font-family:var(--text);font-size:1.02rem;color:var(--ink);
-  /* an input boundary is a UI component: --line is only 1.7:1 and cannot
-     carry it, so fields get the text-weight ink instead */
-  background:var(--panel);border:1px solid var(--ink-3);
-  padding:.85em .95em;width:100%;border-radius:0;
-  transition:border-color .25s var(--ease),box-shadow .25s var(--ease);
-  -webkit-appearance:none;appearance:none;
-}
-.field textarea{resize:vertical;min-height:calc(var(--tile) * 3);line-height:1.6}
-.field select{
-  background-image:linear-gradient(45deg,transparent 50%,var(--ink-2) 50%),
-                   linear-gradient(135deg,var(--ink-2) 50%,transparent 50%);
-  background-position:calc(100% - 18px) 52%,calc(100% - 12px) 52%;
-  background-size:6px 6px,6px 6px;background-repeat:no-repeat;padding-right:2.6em;
-}
-.field input::placeholder,.field textarea::placeholder{color:var(--ink-3);opacity:.75}
-.field input:focus,.field select:focus,.field textarea:focus{
-  outline:none;border-color:var(--ink);box-shadow:inset 0 0 0 1px var(--ink);
-}
-.field .invalid{border-color:#B3341F;box-shadow:inset 0 0 0 1px #B3341F}
-.f-status{margin:0;font-size:.9rem;color:var(--ink-2);min-height:1.4em}
-.f-status.is-error{color:#B3341F}
-.f-fine{margin:0;font-size:.83rem;line-height:1.55;color:var(--ink-3)}
+  width:100%;font-family:var(--notice);font-size:.98rem;color:var(--paint);
+  padding:.78rem .85rem;background:#08080A;border:1px solid var(--steel-4);border-radius:var(--r);
+  -webkit-appearance:none;appearance:none;transition:border-color .18s ease,background-color .18s ease}
+.field textarea{resize:vertical;min-height:6.5rem;line-height:1.55}
+.field select{background-image:linear-gradient(45deg,transparent 50%,var(--paint-3) 50%),linear-gradient(135deg,var(--paint-3) 50%,transparent 50%);
+  background-position:calc(100% - 18px) 55%,calc(100% - 13px) 55%;background-size:5px 5px,5px 5px;background-repeat:no-repeat;padding-inline-end:2.4rem}
+.field input:focus,.field select:focus,.field textarea:focus{outline:0;border-color:var(--amber);background:#0D0D0F}
+.field input.invalid,.field textarea.invalid,.field select.invalid{border-color:var(--red)}
+@media (max-width:560px){.field input,.field select,.field textarea{font-size:16px}}
 
-/* -------------------------------------------------------------- 16. FOOTER */
-.foot{background:var(--panel-2);border-top:1px solid var(--line);margin-top:0}
-.foot-in{
-  display:grid;gap:calc(var(--tile) * 1);grid-template-columns:1fr;
-  padding-block:calc(var(--tile) * 1.6);
-}
-@media (min-width:760px){.foot-in{grid-template-columns:1.5fr 1fr 1fr}}
-.foot-brand p{margin-top:.9em;max-width:34ch;color:var(--ink-2);font-size:.96em}
-.foot-nav{display:flex;flex-direction:column;gap:.55em;align-items:flex-start}
-.foot-nav h4{color:var(--ink-3);margin-bottom:.5em}
-.foot-nav a{
-  text-decoration:none;color:var(--ink-2);font-size:.95em;
-  border-bottom:1px solid transparent;transition:border-color .22s var(--ease),color .22s var(--ease);
-}
-.foot-nav a:hover{color:var(--ink);border-bottom-color:var(--gold)}
-.foot-bot{
-  display:flex;flex-wrap:wrap;gap:.6em 1.5rem;justify-content:space-between;align-items:center;
-  padding-block:calc(var(--tile) * .7);border-top:1px solid var(--line);
-}
-.foot-bot p{margin:0;font-size:.84rem;color:var(--ink-3)}
-.foot-slogan{
-  font-family:var(--display);font-weight:600;text-transform:uppercase;
-  letter-spacing:.24em;font-size:.66rem !important;color:var(--ink-2) !important;
-}
+.f-status{margin:0;min-height:1.2rem;font-family:var(--board-face);font-weight:700;font-size:.72rem;
+  text-transform:uppercase;letter-spacing:.14em;color:var(--amber)}
+.f-status.is-error{color:var(--red-txt)}
+.f-fine{margin:0;font-size:.82rem;line-height:1.55;color:var(--paint-3)}
 
-/* --------------------------------------------------------------- 17. GLAZE */
-/* Motion is a wash of blue filling the line work, the way glaze floods a
-   drawing in the kiln. Nothing is hidden from a visitor without JS. */
-.js [data-a]{
-  -webkit-mask-image:linear-gradient(180deg,#000 42%,rgba(0,0,0,.06) 78%);
-  mask-image:linear-gradient(180deg,#000 42%,rgba(0,0,0,.06) 78%);
-  -webkit-mask-size:100% 300%;mask-size:100% 300%;
-  -webkit-mask-position:0 -190%;mask-position:0 -190%;
-  opacity:.25;
-  transition:-webkit-mask-position 1.05s var(--ease),mask-position 1.05s var(--ease),
-             opacity .8s var(--ease);
-}
-.js [data-a].in{
-  -webkit-mask-position:0 0;mask-position:0 0;opacity:1;
-}
+/* ----------------------------------------------------------- 18. FOOTER */
+.foot{background:#08080A;border-top:1px solid var(--steel-3)}
+.foot-in{display:grid;gap:2.2rem;padding-block:clamp(2.4rem,4.5vw,3.4rem)}
+@media (min-width:800px){.foot-in{grid-template-columns:1.7fr 1fr 1fr}}
+.foot-brand p{margin-top:1rem;color:var(--paint-3);font-size:.92rem;max-width:34ch}
+.foot-nav{display:grid;gap:.1rem;align-content:start}
+.foot-nav h4{margin-bottom:.9rem}
+.foot-nav a{font-family:var(--board-face);font-weight:600;font-size:.78rem;text-transform:uppercase;letter-spacing:.13em;
+  color:var(--paint-2);text-decoration:none;padding:.36rem 0;width:fit-content}
+.foot-nav a:hover{color:var(--amber)}
+.foot-bot{display:grid;gap:.8rem;padding-block:1.2rem;border-top:1px solid var(--steel-3)}
+@media (min-width:680px){.foot-bot{grid-template-columns:1fr auto auto;align-items:center;gap:1.6rem}}
+.foot-bot p{margin:0;font-family:var(--board-face);font-weight:500;font-size:.66rem;text-transform:uppercase;
+  letter-spacing:.15em;color:var(--paint-3)}
+.foot-slogan{color:var(--amber)}
+
+/* ----------------------------------------------------------- 19. MOTION */
+/* One authored moment: the board setting itself. Cells flip down from the
+   hinge, left to right, then the rows land. Nothing else on the site moves. */
+html.js .flap .cell > span{transform-origin:50% 0}
+html.js .flap[data-set] .cell > span{opacity:0;transform:rotateX(-92deg)}
+html.js .flap[data-set].set .cell > span{opacity:1;transform:none;
+  transition:transform .34s var(--ease),opacity .18s linear;transition-delay:var(--d,0ms)}
+html.js .board[data-set] tbody tr{opacity:0}
+html.js .board[data-set].set tbody tr{opacity:1;transition:opacity .3s linear;transition-delay:var(--d,0ms)}
+
 @media (prefers-reduced-motion:reduce){
-  .js [data-a],.js [data-a].in{
-    -webkit-mask-image:none;mask-image:none;opacity:1;transition:none;
-  }
+  html.js .flap[data-set] .cell > span,
+  html.js .flap[data-set].set .cell > span{opacity:1!important;transform:none!important;transition:none!important}
+  html.js .board[data-set] tbody tr,
+  html.js .board[data-set].set tbody tr{opacity:1!important;transition:none!important}
+  .mobile-routes{transition:none}
+  *,*::before,*::after{animation-duration:.001ms!important;animation-iteration-count:1!important}
 }
-
-/* ---------------------------------------------------------- 18. UTILITIES */
-.center{text-align:center}
-.vh{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;
-  clip:rect(0 0 0 0);white-space:nowrap;border:0}
-.mt-1{margin-top:calc(var(--tile) * .8)}
-.mt-2{margin-top:calc(var(--tile) * 1.4)}
-.mb-1{margin-bottom:calc(var(--tile) * .5)}
-.narrow{max-width:70ch;margin-inline:auto}
-.cta-close{
-  text-align:center;display:flex;flex-direction:column;align-items:center;
-  padding:calc(var(--tile) * 1.6) calc(var(--tile) * 1);
-}
-.cta-close h2{max-width:22ch;margin-bottom:.6em}
-.cta-close p{max-width:46ch;color:var(--ink-2)}
-.cta-close .btn{margin-top:calc(var(--tile) * .9)}

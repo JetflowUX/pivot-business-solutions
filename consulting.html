@@ -3,52 +3,51 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<script>
-  (function(){try{var t=localStorage.getItem('pivot-theme');if(t)document.documentElement.setAttribute('data-theme',t);}catch(e){}document.documentElement.className+=' js';}());
-</script>
+<script>document.documentElement.className += ' js';</script>
 <title>Athlete &amp; Business Management Consulting | Pivot Business Solutions</title>
 <meta name="description" content="Management consulting for athletes managing a career and a brand, and for businesses ready to change course. Map the options, weigh the risk, build a plan you can move on.">
-<meta name="theme-color" content="#F1EFE7" media="(prefers-color-scheme: light)">
-<meta name="theme-color" content="#061C46" media="(prefers-color-scheme: dark)">
+<meta name="theme-color" content="#0D0D0F">
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
 <meta property="og:type" content="website">
-<meta property="og:title" content="Consulting — Pivot Business Solutions">
-<meta property="og:description" content="Management consulting for athletes and businesses at a crossroads.">
-<meta property="og:image" content="images/consult.jpg">
-<link rel="preload" href="fonts/cinzel-700-normal.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="preload" href="fonts/ebgaramond-400-normal.woff2" as="font" type="font/woff2" crossorigin>
+<meta property="og:title" content="Athlete &amp; Business Management Consulting | Pivot Business Solutions">
+<meta property="og:description" content="Management consulting for athletes managing a career and a brand, and for businesses ready to change course. Map the options, weigh the risk, build a plan you can move on.">
+<meta property="og:image" content="images/hero.jpg">
+<link rel="preload" href="fonts/archivonarrow-700-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="fonts/archivo-400-normal.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-<!-- Direction contract lives in index.html (seed key e9ffcc1f). This route inherits it. -->
+<!-- Direction contract lives in index.html (seed key 08b7696e). This route inherits it. -->
+
 <a class="skip" href="#main">Skip to content</a>
 
 <header class="station">
-  <div class="station-in">
-    <div class="hall station-bar">
-      <a class="brand" href="index.html" aria-label="Pivot Business Solutions — home">
-        <i class="pivot-mark" aria-hidden="true"></i>
-        <span class="brand-txt"><span class="brand-name">Pivot</span><span class="brand-sub">Business Solutions</span></span>
-      </a>
-      <nav class="routes" aria-label="Primary">
-        <a href="who-i-help.html">Who I help</a>
-        <a href="counseling.html">Counseling</a>
-        <a href="consulting.html" aria-current="page">Consulting</a>
-        <a href="approach.html">Approach</a>
-        <a href="about.html">About</a>
-      </nav>
-      <div class="station-act">
-        <button class="glaze-btn" id="themeBtn" type="button" aria-label="Switch to the dark glaze">
-          <svg class="i-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><circle cx="12" cy="12" r="4.4"/><path d="M12 2.6v2.5M12 18.9v2.5M2.6 12h2.5M18.9 12h2.5M5.2 5.2 7 7M17 17l1.8 1.8M18.8 5.2 17 7M7 17l-1.8 1.8" stroke-linecap="round"/></svg>
-          <svg class="i-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M20 14.2A8.4 8.4 0 0 1 9.8 4a8.6 8.6 0 1 0 10.2 10.2Z" stroke-linejoin="round"/></svg>
-        </button>
-        <a class="btn btn-sm station-cta" href="contact.html">Book a consult</a>
-        <button class="burger" id="routeToggle" type="button" aria-expanded="false" aria-controls="mobileRoutes" aria-label="Open the route list">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><path d="M4 8h16M4 16h16" stroke-linecap="round"/></svg>
-        </button>
-      </div>
+  <div class="hall station-bar">
+    <a class="brand" href="index.html" aria-label="Pivot Business Solutions — home">
+      <svg class="brand-mark" viewBox="0 0 32 32" fill="none" aria-hidden="true">
+        <path d="M9 24A11 11 0 0 1 22.5 10.6" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"/>
+        <path d="M22.5 10.6 18.2 11.2M22.5 10.6 21.9 15" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/>
+        <circle cx="9" cy="24" r="3" fill="#F2F2F2"/>
+      </svg>
+      <span><span class="brand-name">Pivot</span><span class="brand-sub">Business Solutions</span></span>
+    </a>
+
+    <nav class="routes" aria-label="Primary">
+      <a href="who-i-help.html">Who I help</a>
+      <a href="counseling.html">Counseling</a>
+      <a href="consulting.html" aria-current="page">Consulting</a>
+      <a href="approach.html">Approach</a>
+      <a href="about.html">About</a>
+    </nav>
+
+    <div class="station-act">
+      <a class="btn btn-sm btn-ghost station-cta" href="contact.html">Book a consult</a>
+      <button class="burger" id="routeToggle" type="button" aria-expanded="false" aria-controls="mobileRoutes" aria-label="Open the route list">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M4 8h16M4 16h16" stroke-linecap="round"/></svg>
+      </button>
     </div>
   </div>
+
   <div class="mobile-routes" id="mobileRoutes">
     <div class="hall mobile-routes-in">
       <a href="who-i-help.html">Who I help</a>
@@ -62,110 +61,116 @@
 </header>
 
 <main id="main">
+
   <section class="masthead">
-    <div class="padrao" aria-hidden="true"></div>
-    <div class="hall masthead-in">
+    <div class="hall">
       <p class="crumb"><a href="index.html">Pivot</a> · Consulting</p>
-      <h1 data-a>Athlete &amp; business consulting.</h1>
-      <p class="lead" data-a>Strategic guidance for the career, the brand, and the company. We map the options, weigh the risk, and build a plan you can actually move on.</p>
+      <h1 class="flap flap-sm" data-flap>Athlete & business<br>consulting.</h1>
+      <p class="lead">Strategic guidance for the career, the brand, and the company. We map the options, weigh the risk, and build a plan you can actually move on.</p>
     </div>
   </section>
 
   <section class="sec">
     <div class="hall">
-      <article class="panel scene" data-a>
-        <div class="scene-fig">
-          <div class="tilepic"><img src="images/hero.jpg" alt="Runners on a track at dusk, mid-stride" width="1500" height="1000" loading="lazy"></div>
-          <span class="scene-num">01</span>
-        </div>
-        <div class="scene-body">
-          <h2>For athletes</h2>
-          <p>A playing career is a business with a short window and a lot of people advising you at once. The job is to separate the offers that build something from the ones that just pay this month.</p>
-          <ul class="points">
-            <li>Career planning across the whole arc, not just the current contract</li>
-            <li>Brand, sponsorship, and which opportunities are worth your name</li>
-            <li>Transition planning, started early enough to have real options</li>
-            <li>Decision support when several advisors are telling you different things</li>
-          </ul>
-          <p class="mt-1">Because I also do the counseling work, we can talk about what a decision costs you personally, not only what it pays.</p>
-        </div>
-      </article>
 
-      <article class="panel scene flip" data-a>
-        <div class="scene-fig">
-          <div class="tilepic"><img src="images/consult.jpg" alt="Two people shaking hands after reaching an agreement" width="1500" height="1001" loading="lazy"></div>
-          <span class="scene-num">02</span>
-        </div>
-        <div class="scene-body">
-          <h2>For businesses</h2>
-          <p>Founders and small teams who can see the crossroads clearly but cannot get a clean read on the options. Usually the blocker is not information. It is that everyone in the room has a stake in one answer.</p>
-          <ul class="points">
-            <li>Strategy when the current direction has stopped paying off</li>
-            <li>Operations and structure that have not kept pace with growth</li>
-            <li>Decision support at the fork, with the trade-offs written down honestly</li>
-            <li>A plan with owners and dates, not a document that gets filed</li>
-          </ul>
-          <p class="mt-1">I stay involved while you execute. A plan nobody adjusts is a plan that fails on contact with a real week.</p>
-        </div>
-      </article>
-    </div>
-  </section>
-
-  <div class="frieze-band"><div class="hall"><div class="frieze"></div></div></div>
-
-  <section class="sec">
-    <div class="hall">
-      <header class="sec-head center">
-        <p class="eyebrow" data-a>How engagements run</p>
-        <h2 data-a>Short, honest, and built to be acted on.</h2>
-      </header>
-      <div class="grid-3">
-        <article class="panel card panel-pad" data-a>
-          <span class="step-n">01</span>
-          <h3>A free first conversation</h3>
-          <p>We work out whether this is the right help at all. If it is not, I will tell you, and point you somewhere better.</p>
-        </article>
-        <article class="panel card panel-pad" data-a>
-          <span class="step-n">02</span>
-          <h3>Scope before cost</h3>
-          <p>We agree what the engagement covers and what a good outcome looks like before anyone talks about a number.</p>
-        </article>
-        <article class="panel card panel-pad" data-a>
-          <span class="step-n">03</span>
-          <h3>In your corner</h3>
-          <p>Delivery is the plan plus the follow-through: staying reachable while the decision meets real conditions.</p>
+      <div class="frame" id="athletes">
+        <article class="scene">
+          <div class="scene-fig">
+            <div class="plate"><img src="images/hero.jpg" alt="Runners on a track at dusk, mid-stride" width="1500" height="1000" loading="lazy"></div>
+          </div>
+          <div class="scene-body">
+            <h2>For athletes</h2>
+            <p>A playing career is a business with a short window and a lot of people advising you at once. The job is to separate the offers that build something from the ones that just pay this month.</p>
+            <ul class="points">
+              <li>Career planning across the whole arc, not just the current contract</li>
+              <li>Brand, sponsorship, and which opportunities are worth your name</li>
+              <li>Transition planning, started early enough to have real options</li>
+              <li>Decision support when several advisors are telling you different things</li>
+            </ul>
+          </div>
         </article>
       </div>
-      <p class="unfired-note note-center mt-2" data-a>
-        <span><b>Fees are not published on this site.</b> Nothing about pricing, retainers, or engagement length has been supplied by the practice, so nothing is stated here. Scope and cost are agreed in the first conversation.</span>
-      </p>
+      <p class="note"><span>Because I also do the counseling work, we can talk about what a decision costs you personally, not only what it pays.</span></p>
+
+      <div class="frame" id="businesses">
+        <article class="scene flip">
+          <div class="scene-fig">
+            <div class="plate"><img src="images/consult.jpg" alt="Two people shaking hands after reaching an agreement" width="1500" height="1000" loading="lazy"></div>
+          </div>
+          <div class="scene-body">
+            <h2>For businesses</h2>
+            <p>Founders and small teams who can see the crossroads clearly but cannot get a clean read on the options. Usually the blocker is not information. It is that everyone in the room has a stake in one answer.</p>
+            <ul class="points">
+              <li>Strategy when the current direction has stopped paying off</li>
+              <li>Operations and structure that have not kept pace with growth</li>
+              <li>Decision support at the fork, with the trade-offs written down honestly</li>
+              <li>A plan with owners and dates, not a document that gets filed</li>
+            </ul>
+          </div>
+        </article>
+      </div>
+      <p class="note"><span>I stay involved while you execute. A plan nobody adjusts is a plan that fails on contact with a real week.</span></p>
     </div>
   </section>
 
-  <section class="sec sec-tight">
+  <section class="sec">
     <div class="hall">
-      <div class="panel cta-close" data-a>
-        <i class="fleuron" aria-hidden="true"></i>
-        <h2 class="mt-1">Bring me the decision you keep postponing.</h2>
-        <p>The first conversation is free and carries no obligation. I'll come back within one business day.</p>
-        <a class="btn" href="contact.html">Request consulting <span class="arr" aria-hidden="true">→</span></a>
+      <header class="sec-head">
+        <h2>Short, honest, and built to be acted on.</h2>
+      </header>
+
+      <div class="module">
+        <div class="module-head">
+          <h3>How an engagement runs</h3>
+          <span class="board-clock">Three stages, in order</span>
+        </div>
+        <ul class="rows rows-keyed">
+          <li>
+            <span class="row-k">01 — A free first conversation</span>
+            <div class="row-v"><p>We work out whether this is the right help at all. If it is not, I will tell you, and point you somewhere better.</p></div>
+          </li>
+          <li>
+            <span class="row-k">02 — Scope before cost</span>
+            <div class="row-v"><p>We agree what the engagement covers and what a good outcome looks like before anyone talks about a number.</p></div>
+          </li>
+          <li>
+            <span class="row-k">03 — In your corner</span>
+            <div class="row-v"><p>Delivery is the plan plus the follow-through: staying reachable while the decision meets real conditions.</p></div>
+          </li>
+        </ul>
+      </div>
+      <p class="note"><span><b>Fees are not published on this site.</b> Nothing about pricing, retainers, or engagement length has been supplied by the practice, so nothing is stated here. Scope and cost are agreed in the first conversation.</span></p>
+    </div>
+  </section>
+
+  <section class="sec">
+    <div class="hall">
+      <div class="frame">
+        <div class="pad">
+          <h2>Bring me the decision you keep postponing.</h2>
+          <p class="lead">The first conversation is free and carries no obligation. I'll come back within one business day.</p>
+          <p class="mt-2"><a class="btn" href="contact.html">Request consulting <span class="arr" aria-hidden="true">→</span></a></p>
+        </div>
       </div>
     </div>
   </section>
 </main>
 
 <footer class="foot">
-  <div class="frieze-band"><div class="hall"><div class="frieze"></div></div></div>
   <div class="hall foot-in">
     <div class="foot-brand">
       <a class="brand" href="index.html">
-        <i class="pivot-mark" aria-hidden="true"></i>
-        <span class="brand-txt"><span class="brand-name">Pivot</span><span class="brand-sub">Business Solutions</span></span>
+        <svg class="brand-mark" viewBox="0 0 32 32" fill="none" aria-hidden="true">
+        <path d="M9 24A11 11 0 0 1 22.5 10.6" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"/>
+        <path d="M22.5 10.6 18.2 11.2M22.5 10.6 21.9 15" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/>
+        <circle cx="9" cy="24" r="3" fill="#F2F2F2"/>
+      </svg>
+        <span><span class="brand-name">Pivot</span><span class="brand-sub">Business Solutions</span></span>
       </a>
       <p>Counseling and consulting for athletes, young people, and the businesses behind them.</p>
     </div>
     <nav class="foot-nav" aria-label="Footer routes">
-      <h4>The hall</h4>
+      <h4>Departures</h4>
       <a href="who-i-help.html">Who I help</a>
       <a href="counseling.html">Counseling</a>
       <a href="consulting.html">Consulting</a>
@@ -173,15 +178,17 @@
       <a href="about.html">About</a>
     </nav>
     <div class="foot-nav">
-      <h4>Get in touch</h4>
+      <h4>Enquiries</h4>
       <!-- PLACEHOLDER CONTACT — replace with the practice's real address and number. -->
-      <a href="mailto:hello@pivotbusinesssolutions.com">hello@pivotbusinesssolutions.com</a>
-      <a href="tel:+15550123456">(555) 012-3456</a>
+      <a class="ph" href="mailto:hello@pivotbusinesssolutions.com">hello@pivotbusinesssolutions.com</a>
+      <a class="ph" href="tel:+15550123456">(555) 012-3456</a>
+      <p class="ph-note">Placeholder details — not live yet</p>
       <a href="contact.html">Book a consult</a>
     </div>
   </div>
   <div class="hall foot-bot">
-    <p>© <span data-year>2026</span> Pivot Business Solutions LLC. All rights reserved.</p>
+    <p>© <span data-year>2026</span> Pivot Business Solutions LLC</p>
+    <p><i class="lamp" aria-hidden="true"></i> Reply within one business day</p>
     <p class="foot-slogan">Find your pivot.</p>
   </div>
 </footer>

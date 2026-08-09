@@ -3,52 +3,51 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<script>
-  (function(){try{var t=localStorage.getItem('pivot-theme');if(t)document.documentElement.setAttribute('data-theme',t);}catch(e){}document.documentElement.className+=' js';}());
-</script>
+<script>document.documentElement.className += ' js';</script>
 <title>The Approach — How a Pivot Actually Happens | Pivot Business Solutions</title>
 <meta name="description" content="Ground, assess, redirect, move. A four-step method for changing direction without losing your footing, used for both counseling and consulting work.">
-<meta name="theme-color" content="#F1EFE7" media="(prefers-color-scheme: light)">
-<meta name="theme-color" content="#061C46" media="(prefers-color-scheme: dark)">
+<meta name="theme-color" content="#0D0D0F">
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
 <meta property="og:type" content="website">
-<meta property="og:title" content="The Approach — Pivot Business Solutions">
-<meta property="og:description" content="Ground, assess, redirect, move. How a pivot actually happens.">
+<meta property="og:title" content="The Approach — How a Pivot Actually Happens | Pivot Business Solutions">
+<meta property="og:description" content="Ground, assess, redirect, move. A four-step method for changing direction without losing your footing, used for both counseling and consulting work.">
 <meta property="og:image" content="images/hero.jpg">
-<link rel="preload" href="fonts/cinzel-700-normal.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="preload" href="fonts/ebgaramond-400-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="fonts/archivonarrow-700-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="fonts/archivo-400-normal.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-<!-- Direction contract lives in index.html (seed key e9ffcc1f). This route inherits it. -->
+<!-- Direction contract lives in index.html (seed key 08b7696e). This route inherits it. -->
+
 <a class="skip" href="#main">Skip to content</a>
 
 <header class="station">
-  <div class="station-in">
-    <div class="hall station-bar">
-      <a class="brand" href="index.html" aria-label="Pivot Business Solutions — home">
-        <i class="pivot-mark" aria-hidden="true"></i>
-        <span class="brand-txt"><span class="brand-name">Pivot</span><span class="brand-sub">Business Solutions</span></span>
-      </a>
-      <nav class="routes" aria-label="Primary">
-        <a href="who-i-help.html">Who I help</a>
-        <a href="counseling.html">Counseling</a>
-        <a href="consulting.html">Consulting</a>
-        <a href="approach.html" aria-current="page">Approach</a>
-        <a href="about.html">About</a>
-      </nav>
-      <div class="station-act">
-        <button class="glaze-btn" id="themeBtn" type="button" aria-label="Switch to the dark glaze">
-          <svg class="i-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><circle cx="12" cy="12" r="4.4"/><path d="M12 2.6v2.5M12 18.9v2.5M2.6 12h2.5M18.9 12h2.5M5.2 5.2 7 7M17 17l1.8 1.8M18.8 5.2 17 7M7 17l-1.8 1.8" stroke-linecap="round"/></svg>
-          <svg class="i-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M20 14.2A8.4 8.4 0 0 1 9.8 4a8.6 8.6 0 1 0 10.2 10.2Z" stroke-linejoin="round"/></svg>
-        </button>
-        <a class="btn btn-sm station-cta" href="contact.html">Book a consult</a>
-        <button class="burger" id="routeToggle" type="button" aria-expanded="false" aria-controls="mobileRoutes" aria-label="Open the route list">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><path d="M4 8h16M4 16h16" stroke-linecap="round"/></svg>
-        </button>
-      </div>
+  <div class="hall station-bar">
+    <a class="brand" href="index.html" aria-label="Pivot Business Solutions — home">
+      <svg class="brand-mark" viewBox="0 0 32 32" fill="none" aria-hidden="true">
+        <path d="M9 24A11 11 0 0 1 22.5 10.6" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"/>
+        <path d="M22.5 10.6 18.2 11.2M22.5 10.6 21.9 15" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/>
+        <circle cx="9" cy="24" r="3" fill="#F2F2F2"/>
+      </svg>
+      <span><span class="brand-name">Pivot</span><span class="brand-sub">Business Solutions</span></span>
+    </a>
+
+    <nav class="routes" aria-label="Primary">
+      <a href="who-i-help.html">Who I help</a>
+      <a href="counseling.html">Counseling</a>
+      <a href="consulting.html">Consulting</a>
+      <a href="approach.html" aria-current="page">Approach</a>
+      <a href="about.html">About</a>
+    </nav>
+
+    <div class="station-act">
+      <a class="btn btn-sm btn-ghost station-cta" href="contact.html">Book a consult</a>
+      <button class="burger" id="routeToggle" type="button" aria-expanded="false" aria-controls="mobileRoutes" aria-label="Open the route list">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M4 8h16M4 16h16" stroke-linecap="round"/></svg>
+      </button>
     </div>
   </div>
+
   <div class="mobile-routes" id="mobileRoutes">
     <div class="hall mobile-routes-in">
       <a href="who-i-help.html">Who I help</a>
@@ -62,113 +61,130 @@
 </header>
 
 <main id="main">
+
   <section class="masthead">
-    <div class="padrao" aria-hidden="true"></div>
-    <div class="hall masthead-in">
+    <div class="hall">
       <p class="crumb"><a href="index.html">Pivot</a> · Approach</p>
-      <h1 data-a>How a pivot actually happens.</h1>
-      <p class="lead" data-a>A pivot keeps one foot planted while the other changes direction. That is the whole idea: move forward without losing your footing.</p>
+      <h1 class="flap flap-sm" data-flap>How a pivot<br>actually happens.</h1>
+      <p class="lead">A pivot keeps one foot planted while the other changes direction. That is the whole idea: move forward without losing your footing.</p>
     </div>
   </section>
 
   <section class="sec">
     <div class="hall">
       <header class="sec-head">
-        <p class="eyebrow" data-a>The method</p>
-        <h2 data-a>Four steps, in order.</h2>
-        <p class="lead" data-a>The same four steps carry the counseling work and the consulting work. Only the subject changes.</p>
+        <h2>Four stops, in order.</h2>
+        <p class="lead">The same four stops carry the counseling work and the consulting work. Only the subject changes.</p>
       </header>
 
-      <div class="grid-2">
-        <article class="panel panel-pad" data-a>
-          <span class="step-n">01</span>
-          <h3>Ground</h3>
-          <p>We start with where you actually are, honestly, including the parts that are uncomfortable to say out loud. No plan survives if it is built on a flattering version of the situation.</p>
-          <p>For a person that means the pressure, the fear, and what you actually want. For a business it means the numbers, the constraints, and which problems are real rather than inherited.</p>
-        </article>
-        <article class="panel panel-pad" data-a>
-          <span class="step-n">02</span>
-          <h3>Assess</h3>
-          <p>We map the real options and what each one costs. Not a list of everything possible, but the three or four roads genuinely open to you, with the trade-offs written down plainly.</p>
-          <p>Most people arrive believing they have one option, or none. Almost nobody has one.</p>
-        </article>
-        <article class="panel panel-pad" data-a>
-          <span class="step-n">03</span>
-          <h3>Redirect</h3>
-          <p>You choose. I will tell you what I think, and I will tell you when I think you are avoiding something, but the decision is yours and it needs to be one you can defend to yourself at 3am.</p>
-          <p>Then we turn it into a plan: concrete next steps, in an order, with the first one small enough to start this week.</p>
-        </article>
-        <article class="panel panel-pad" data-a>
-          <span class="step-n">04</span>
-          <h3>Move</h3>
-          <p>You execute, and I stay in your corner while real life pushes back. Plans meet conditions nobody predicted; the point of staying involved is to adjust without abandoning the direction.</p>
-          <p>This is the step most advice skips, and it is the one that decides whether anything actually changes.</p>
-        </article>
+      <div class="module">
+        <div class="module-head">
+          <h3>This service calls at</h3>
+          <span class="board-clock">Ground · Assess · Redirect · Move</span>
+        </div>
+        <ol class="rows">
+          <li>
+            <div class="calls">
+              <div class="call is-first">
+                <div class="call-mark"><i class="call-dot"></i></div>
+                <div class="call-body">
+                  <span class="call-n">Stop 01</span>
+                  <h3>Ground</h3>
+                  <p>We start with where you actually are, honestly, including the parts that are uncomfortable to say out loud. No plan survives if it is built on a flattering version of the situation.</p><p>For a person that means the pressure, the fear, and what you actually want. For a business it means the numbers, the constraints, and which problems are real rather than inherited.</p>
+                </div>
+              </div>
+              <div class="call">
+                <div class="call-mark"><i class="call-dot"></i></div>
+                <div class="call-body">
+                  <span class="call-n">Stop 02</span>
+                  <h3>Assess</h3>
+                  <p>We map the real options and what each one costs. Not a list of everything possible, but the three or four roads genuinely open to you, with the trade-offs written down plainly.</p><p>Most people arrive believing they have one option, or none. Almost nobody has one.</p>
+                </div>
+              </div>
+              <div class="call">
+                <div class="call-mark"><i class="call-dot"></i></div>
+                <div class="call-body">
+                  <span class="call-n">Stop 03</span>
+                  <h3>Redirect</h3>
+                  <p>You choose. I will tell you what I think, and I will tell you when I think you are avoiding something, but the decision is yours and it needs to be one you can defend to yourself at 3am.</p><p>Then we turn it into a plan: concrete next steps, in an order, with the first one small enough to start this week.</p>
+                </div>
+              </div>
+              <div class="call">
+                <div class="call-mark"><i class="call-dot"></i></div>
+                <div class="call-body">
+                  <span class="call-n">Stop 04</span>
+                  <h3>Move</h3>
+                  <p>You execute, and I stay in your corner while real life pushes back. Plans meet conditions nobody predicted; the point of staying involved is to adjust without abandoning the direction.</p><p>This is the step most advice skips, and it is the one that decides whether anything actually changes.</p>
+                </div>
+              </div>
+            </div>
+          </li>
+        </ol>
       </div>
     </div>
   </section>
 
   <section class="band">
-    <div class="padrao" aria-hidden="true"></div>
-    <div class="hall band-in">
-      <i class="fleuron" aria-hidden="true"></i>
-      <blockquote data-a>The pivot isn't the end of the play. It's the start of the <em>next one</em>.</blockquote>
+    <div class="hall">
+      <blockquote>The pivot isn't the end of the play. It's the start of the <em>next one</em>.</blockquote>
     </div>
   </section>
 
   <section class="sec">
     <div class="hall">
-      <div class="grid-2">
-        <div class="panel panel-pad" data-a>
-          <p class="eyebrow">What to expect</p>
-          <h2>Plain language, and a next move.</h2>
-          <ul class="points">
-            <li>The first conversation is free and carries no obligation</li>
-            <li>A reply within one business day</li>
-            <li>In person or online, whichever you will actually keep</li>
-            <li>You leave every session with something specific to do</li>
-          </ul>
-        </div>
-        <div class="panel panel-pad" data-a>
-          <p class="eyebrow">What this is not</p>
-          <h2>No scripts, no packages, no pressure.</h2>
-          <ul class="points">
-            <li>No programme you have to buy into before we have spoken</li>
-            <li>No motivational performance; the work is quieter than that</li>
-            <li>Nothing you say is reported to a coach, school, club, or board</li>
-            <li>If you need something I cannot offer, I will say so early</li>
-          </ul>
+      <div class="frame">
+        <div class="split">
+          <div class="pad">
+            <h2>Plain language, and a next move.</h2>
+            <ul class="points">
+              <li>The first conversation is free and carries no obligation</li>
+              <li>A reply within one business day</li>
+              <li>In person or online, whichever you will actually keep</li>
+              <li>You leave every session with something specific to do</li>
+            </ul>
+          </div>
+          <div class="pad">
+            <h2>No scripts, no packages, no pressure.</h2>
+            <ul class="points">
+              <li>No programme you have to buy into before we have spoken</li>
+              <li>No motivational performance; the work is quieter than that</li>
+              <li>Nothing you say is reported to a coach, school, club, or board</li>
+              <li>If you need something I cannot offer, I will say so early</li>
+            </ul>
+          </div>
         </div>
       </div>
     </div>
   </section>
 
-  <div class="frieze-band"><div class="hall"><div class="frieze"></div></div></div>
-
   <section class="sec">
     <div class="hall">
-      <div class="panel cta-close" data-a>
-        <i class="fleuron" aria-hidden="true"></i>
-        <h2 class="mt-1">Step one is a conversation.</h2>
-        <p>It costs nothing and commits you to nothing. Tell me roughly where you are and we will work out whether this is the right help.</p>
-        <a class="btn" href="contact.html">Book a free consult <span class="arr" aria-hidden="true">→</span></a>
+      <div class="frame">
+        <div class="pad">
+          <h2>Stop one is a conversation.</h2>
+          <p class="lead">It costs nothing and commits you to nothing. Tell me roughly where you are and we will work out whether this is the right help.</p>
+          <p class="mt-2"><a class="btn" href="contact.html">Book a free consult <span class="arr" aria-hidden="true">→</span></a></p>
+        </div>
       </div>
     </div>
   </section>
 </main>
 
 <footer class="foot">
-  <div class="frieze-band"><div class="hall"><div class="frieze"></div></div></div>
   <div class="hall foot-in">
     <div class="foot-brand">
       <a class="brand" href="index.html">
-        <i class="pivot-mark" aria-hidden="true"></i>
-        <span class="brand-txt"><span class="brand-name">Pivot</span><span class="brand-sub">Business Solutions</span></span>
+        <svg class="brand-mark" viewBox="0 0 32 32" fill="none" aria-hidden="true">
+        <path d="M9 24A11 11 0 0 1 22.5 10.6" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"/>
+        <path d="M22.5 10.6 18.2 11.2M22.5 10.6 21.9 15" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/>
+        <circle cx="9" cy="24" r="3" fill="#F2F2F2"/>
+      </svg>
+        <span><span class="brand-name">Pivot</span><span class="brand-sub">Business Solutions</span></span>
       </a>
       <p>Counseling and consulting for athletes, young people, and the businesses behind them.</p>
     </div>
     <nav class="foot-nav" aria-label="Footer routes">
-      <h4>The hall</h4>
+      <h4>Departures</h4>
       <a href="who-i-help.html">Who I help</a>
       <a href="counseling.html">Counseling</a>
       <a href="consulting.html">Consulting</a>
@@ -176,15 +192,17 @@
       <a href="about.html">About</a>
     </nav>
     <div class="foot-nav">
-      <h4>Get in touch</h4>
+      <h4>Enquiries</h4>
       <!-- PLACEHOLDER CONTACT — replace with the practice's real address and number. -->
-      <a href="mailto:hello@pivotbusinesssolutions.com">hello@pivotbusinesssolutions.com</a>
-      <a href="tel:+15550123456">(555) 012-3456</a>
+      <a class="ph" href="mailto:hello@pivotbusinesssolutions.com">hello@pivotbusinesssolutions.com</a>
+      <a class="ph" href="tel:+15550123456">(555) 012-3456</a>
+      <p class="ph-note">Placeholder details — not live yet</p>
       <a href="contact.html">Book a consult</a>
     </div>
   </div>
   <div class="hall foot-bot">
-    <p>© <span data-year>2026</span> Pivot Business Solutions LLC. All rights reserved.</p>
+    <p>© <span data-year>2026</span> Pivot Business Solutions LLC</p>
+    <p><i class="lamp" aria-hidden="true"></i> Reply within one business day</p>
     <p class="foot-slogan">Find your pivot.</p>
   </div>
 </footer>
