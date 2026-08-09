@@ -7,9 +7,9 @@
   (function(){try{var t=localStorage.getItem('pivot-theme');if(t)document.documentElement.setAttribute('data-theme',t);}catch(e){}document.documentElement.className+=' js';}());
 </script>
 <title>Pivot Business Solutions — Counseling &amp; Consulting for Athletes, Young People &amp; Business</title>
-<meta name="description" content="Pivot Business Solutions LLC — professional and life counseling for athletes and young people, plus management consulting for athletes and businesses. Find your pivot.">
-<meta name="theme-color" content="#F3F4EE" media="(prefers-color-scheme: light)">
-<meta name="theme-color" content="#101915" media="(prefers-color-scheme: dark)">
+<meta name="description" content="Professional and life counseling for athletes and young people, plus management consulting for athletes and businesses. One practitioner for the inner game and the outer one. Find your pivot.">
+<meta name="theme-color" content="#F1EFE7" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#061C46" media="(prefers-color-scheme: dark)">
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
 
 <meta property="og:type" content="website">
@@ -17,284 +17,354 @@
 <meta property="og:description" content="Counseling for athletes and young people. Management consulting for athletes and businesses.">
 <meta property="og:image" content="images/hero.jpg">
 
-<link rel="preload" href="fonts/fraunces-700-normal.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="preload" href="fonts/archivo-400-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="fonts/cinzel-700-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="fonts/ebgaramond-400-normal.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+<!--
+  DIRECTION CONTRACT — do not delete. The finish review audits the render against it.
 
-<a class="skip" href="#services">Skip to content</a>
-<div class="scroll-progress" aria-hidden="true"><span data-progress></span></div>
+  THESIS: A counseling and consulting practice built as a Portuguese azulejo
+  station hall — framed narrative panels walked in order. It refuses the
+  category's warm-ivory-and-serif wellness page, which is what this site was.
 
-<!-- ============================================================ NAV -->
-<header class="nav" id="nav">
-  <div class="wrap nav-in">
-    <a class="brand" href="#top" aria-label="Pivot Business Solutions — home">
-      <svg class="brand-mark" viewBox="0 0 32 32" aria-hidden="true">
-        <path d="M9 23 A12 12 0 0 1 22.5 10.5" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/>
-        <path d="M22.5 10.5 L18.4 11 M22.5 10.5 L22 14.7" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
-        <circle cx="9" cy="23" r="2.8" fill="currentColor"/>
-      </svg>
-      <span class="brand-txt"><span class="brand-name">Pivot</span><span class="brand-sub">Business Solutions</span></span>
-    </a>
+  OWN-WORLD: Cobalt oxide on milk-white tin glaze; mustard only inside border
+  frames. Grout seams cross every panel, photograph and figure without
+  exception. Inscriptional roman caps over old-style text. All ornament is
+  authored SVG worn as CSS masks, so ink is always a token.
 
-    <nav class="nav-links" aria-label="Primary">
-      <a href="#help">Who I help</a>
-      <a href="#services">Services</a>
-      <a href="#approach">Approach</a>
-      <a href="#about">About</a>
-    </nav>
+  STORY: A stranger at a turning point sees one practitioner who handles both
+  the inner game and the outer one, and books the free first conversation.
 
-    <div class="nav-act">
-      <button class="theme-btn" id="themeBtn" type="button" aria-label="Switch colour theme">
-        <svg class="i-sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4.5" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M12 2.5v2.6M12 18.9v2.6M2.5 12h2.6M18.9 12h2.6M5.1 5.1l1.9 1.9M17 17l1.9 1.9M18.9 5.1 17 7M7 17l-1.9 1.9" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
-        <svg class="i-moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 14.2A8.4 8.4 0 0 1 9.8 4a8.6 8.6 0 1 0 10.2 10.2Z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg>
-      </button>
-      <a class="btn btn-primary nav-cta" href="#contact">Book a consult</a>
-      <button class="burger" id="navToggle" type="button" aria-expanded="false" aria-controls="mobileMenu" aria-label="Open menu"><span></span><span></span></button>
+  FIRST VIEWPORT: Left, a glazed field carrying the cartouche device, the
+  headline in roman caps, and the primary action. Right, bleeding to the wall
+  edge, the painted mural. A frieze closes the band.
+
+  FORM: Azulejo Station Hall — user-chosen challenger over assigned grounded
+  candidate 5 (stadium wayfinding). Seed key e9ffcc1f.
+
+  FINISH: unreviewed and undocumented is unfinished; this build ends with the
+  finish review, the verdict, and DESIGN.md
+-->
+
+<a class="skip" href="#main">Skip to content</a>
+
+<!-- ═══════════════════════════════════════════════════════ STATION -->
+<header class="station">
+  <div class="station-in">
+    <div class="hall station-bar">
+      <a class="brand" href="index.html" aria-label="Pivot Business Solutions — home">
+        <i class="pivot-mark" aria-hidden="true"></i>
+        <span class="brand-txt">
+          <span class="brand-name">Pivot</span>
+          <span class="brand-sub">Business Solutions</span>
+        </span>
+      </a>
+
+      <nav class="routes" aria-label="Primary">
+        <a href="who-i-help.html">Who I help</a>
+        <a href="counseling.html">Counseling</a>
+        <a href="consulting.html">Consulting</a>
+        <a href="approach.html">Approach</a>
+        <a href="about.html">About</a>
+      </nav>
+
+      <div class="station-act">
+        <button class="glaze-btn" id="themeBtn" type="button" aria-label="Switch to the dark glaze">
+          <svg class="i-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><circle cx="12" cy="12" r="4.4"/><path d="M12 2.6v2.5M12 18.9v2.5M2.6 12h2.5M18.9 12h2.5M5.2 5.2 7 7M17 17l1.8 1.8M18.8 5.2 17 7M7 17l-1.8 1.8" stroke-linecap="round"/></svg>
+          <svg class="i-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M20 14.2A8.4 8.4 0 0 1 9.8 4a8.6 8.6 0 1 0 10.2 10.2Z" stroke-linejoin="round"/></svg>
+        </button>
+        <a class="btn btn-sm station-cta" href="contact.html">Book a consult</a>
+        <button class="burger" id="routeToggle" type="button" aria-expanded="false" aria-controls="mobileRoutes" aria-label="Open the route list">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><path d="M4 8h16M4 16h16" stroke-linecap="round"/></svg>
+        </button>
+      </div>
     </div>
   </div>
-  <div class="mobile-menu" id="mobileMenu">
-    <div class="mobile-menu-in">
-      <a href="#help">Who I help</a>
-      <a href="#services">Services</a>
-      <a href="#approach">Approach</a>
-      <a href="#about">About</a>
-      <a class="btn btn-primary" href="#contact">Book a consult</a>
+
+  <div class="mobile-routes" id="mobileRoutes">
+    <div class="hall mobile-routes-in">
+      <a href="who-i-help.html">Who I help</a>
+      <a href="counseling.html">Counseling</a>
+      <a href="consulting.html">Consulting</a>
+      <a href="approach.html">Approach</a>
+      <a href="about.html">About</a>
+      <a class="btn btn-block" href="contact.html">Book a consult</a>
     </div>
   </div>
 </header>
 
-<main id="top">
+<main id="main">
 
-  <!-- ============================================================ HERO -->
-  <section class="hero" id="hero">
-    <div class="hero-bg" aria-hidden="true"></div>
-    <div class="hero-veil" aria-hidden="true"></div>
-    <div class="wrap"><div class="hero-in">
-      <p class="hero-kicker" data-a><span class="pivot-badge" aria-hidden="true"><i></i></span>Pivot Business Solutions LLC</p>
-      <h1 class="hero-title" data-a>You've got the drive.<br>Let's find the <em>direction</em>.</h1>
-      <p class="hero-sub" data-a>Professional and life counseling for athletes and young people — and management consulting for the athletes and businesses ready for their next move.</p>
-      <div class="hero-cta" data-a>
-        <a class="btn btn-gold btn-lg" href="#contact">Book a free consult</a>
-        <a class="btn btn-glass btn-lg" href="#approach">See how it works <span class="arr" aria-hidden="true">→</span></a>
+  <!-- ═══════════════════════════════════════════════════════ HERO -->
+  <section class="hero">
+    <div class="hall">
+      <div class="hero-grid">
+        <div class="hero-copy">
+          <span class="cartouche hero-badge" data-a>
+            <i class="vol"></i><i class="vol"></i><i class="vol"></i><i class="vol"></i>
+            <i class="pivot-mark" aria-hidden="true"></i>
+            <span>Pivot Business Solutions LLC</span>
+          </span>
+          <h1 data-a>You've got the drive.<br>Let's find the <em>direction</em>.</h1>
+          <p class="lead hero-sub" data-a>Professional and life counseling for athletes and young people. Management consulting for the athletes and businesses ready for their next move.</p>
+          <div class="hero-cta" data-a>
+            <a class="btn" href="contact.html">Book a free consult</a>
+            <a class="btn btn-ghost" href="approach.html">See how it works <span class="arr" aria-hidden="true">→</span></a>
+          </div>
+          <p class="hero-slogan" data-a>Find your pivot.</p>
+        </div>
+
+        <div class="hero-mural">
+          <div class="tilepic">
+            <img src="images/hero.jpg" alt="Three runners on a track at dusk, mid-stride against a bright horizon" width="1500" height="1000" fetchpriority="high">
+          </div>
+          <span class="cartouche hero-cartouche" aria-hidden="true">
+            <i class="vol"></i><i class="vol"></i><i class="vol"></i><i class="vol"></i>
+            <b>The Turning Point</b>
+            <em>Counseling &amp; Consulting</em>
+          </span>
+        </div>
       </div>
-      <p class="hero-tag" data-a>Find your pivot.</p>
-    </div></div>
+    </div>
+    <div class="hero-foot frieze-band"><div class="hall"><div class="frieze"></div></div></div>
   </section>
 
-  <!-- ============================================================ WHO I HELP -->
-  <section class="sec help" id="help" data-reveal>
-    <div class="wrap">
-      <header class="sec-head">
+  <!-- ═══════════════════════════════════════════════════════ WHO I HELP -->
+  <section class="sec">
+    <div class="hall">
+      <header class="sec-head center">
         <p class="eyebrow" data-a>Who I work with</p>
-        <h2 class="sec-title" data-a>Different people, the same&nbsp;turning&nbsp;point.</h2>
+        <h2 data-a>Different people, the same turning point.</h2>
       </header>
-      <div class="help-grid">
-        <article class="help-card" data-a>
-          <span class="help-ic" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="12" cy="6.5" r="3"/><path d="M6 21c0-4 2.7-7 6-7s6 3 6 7"/><path d="M12 9.5v4"/></svg></span>
+
+      <div class="grid-3">
+        <article class="panel card panel-pad" data-a>
+          <span class="emblem" aria-hidden="true">
+            <svg viewBox="0 0 32 32"><circle cx="19" cy="6.5" r="2.7"/><path d="M17 10.2 12.6 17.4M17 12.4l4.8 2.6M17 12.4 11.6 11M12.6 17.4 8.6 22.4l1.6 5.2M12.6 17.4l4.6 4-1 5.6M5 29h22"/></svg>
+          </span>
           <h3>Athletes</h3>
-          <p>In-season, injured, or moving on from the game. Protect your identity, your decisions and your next chapter.</p>
+          <p>In-season, injured, or moving on from the game. Protect your identity, your decisions, and your next chapter.</p>
+          <a class="link-arrow" href="who-i-help.html#athletes">Read more <span aria-hidden="true">→</span></a>
         </article>
-        <article class="help-card" data-a>
-          <span class="help-ic" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 10 12 5l8 5-8 5-8-5Z"/><path d="M8 12.5V17c0 1 1.8 2 4 2s4-1 4-2v-4.5M20 10v5"/></svg></span>
+
+        <article class="panel card panel-pad" data-a>
+          <span class="emblem" aria-hidden="true">
+            <svg viewBox="0 0 32 32"><path d="M9.5 21.5h13M11 21.5 12.4 29h7.2l1.4-7.5M16 21.5V12M16 16.4c-4-1-5.6-4-4.6-6.6 2.6-.5 4.6 2 4.6 4.5M16 16.4c4-1 5.6-4 4.6-6.6-2.6-.5-4.6 2-4.6 4.5"/></svg>
+          </span>
           <h3>Young people</h3>
-          <p>Pressure, purpose and the weight of expectation. A steady, confidential space to figure out who you are and where you're headed.</p>
+          <p>Pressure, purpose, and the weight of expectation. A steady, confidential space to work out who you are and where you're headed.</p>
+          <a class="link-arrow" href="who-i-help.html#young-people">Read more <span aria-hidden="true">→</span></a>
         </article>
-        <article class="help-card" data-a>
-          <span class="help-ic" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 20V9l6-3 6 3v11"/><path d="M4 20h16M16 20V12l4-2v10"/><path d="M8 12h.01M8 16h.01M12 12h.01M12 16h.01"/></svg></span>
+
+        <article class="panel card panel-pad" data-a>
+          <span class="emblem" aria-hidden="true">
+            <svg viewBox="0 0 32 32"><path d="M5 27.5h22M8 27.5V14M16 27.5V14M24 27.5V14M8 14a4 4 0 0 1 8 0M16 14a4 4 0 0 1 8 0M5 11.5 16 5l11 6.5"/></svg>
+          </span>
           <h3>Businesses</h3>
           <p>Founders and teams at a crossroads. Clear-eyed management consulting to change direction without losing momentum.</p>
+          <a class="link-arrow" href="who-i-help.html#businesses">Read more <span aria-hidden="true">→</span></a>
         </article>
       </div>
     </div>
   </section>
 
-  <!-- ============================================================ SERVICES -->
-  <section class="sec services sec-alt" id="services" data-reveal>
-    <div class="wrap">
-      <header class="sec-head sec-head-split">
-        <div>
-          <p class="eyebrow" data-a>Services</p>
-          <h2 class="sec-title" data-a>Two ways I help you turn.</h2>
-        </div>
-        <p class="sec-lead" data-a>Counseling for the person. Consulting for the career and the company. Often, the same client needs both.</p>
-      </header>
+  <div class="frieze-band"><div class="hall"><div class="frieze"></div></div></div>
 
-      <div class="svc-rows">
-        <article class="svc-row" data-a>
-          <figure class="svc-media"><img src="images/counsel.jpg" alt="A focused athlete pausing during a training session" loading="lazy"><span class="svc-num">01</span></figure>
-          <div class="svc-copy">
-            <h3>Life &amp; Professional Counseling</h3>
-            <p>One-to-one counseling for athletes and young people — mental performance, identity beyond the sport, pressure, transitions and the decisions that shape what comes next. Confidential, practical, and built around you.</p>
-            <ul class="svc-points">
-              <li>Performance mindset &amp; managing pressure</li>
-              <li>Identity &amp; life after competition</li>
-              <li>Purpose, relationships &amp; direction</li>
-            </ul>
-            <a class="link-arrow" href="#contact">Start a conversation <span aria-hidden="true">→</span></a>
-          </div>
-        </article>
-
-        <article class="svc-row svc-row-rev" data-a>
-          <figure class="svc-media"><img src="images/consult.jpg" alt="Two professionals shaking hands after an agreement" loading="lazy"><span class="svc-num">02</span></figure>
-          <div class="svc-copy">
-            <h3>Athlete &amp; Business Management Consulting</h3>
-            <p>Strategic guidance for athletes managing a career and a brand, and for businesses ready to change course. We map the options, weigh the risk, and build a plan you can actually move on — then stay in your corner while you execute.</p>
-            <ul class="svc-points">
-              <li>Career, brand &amp; transition planning for athletes</li>
-              <li>Business strategy, operations &amp; growth</li>
-              <li>Decision support at the crossroads</li>
-            </ul>
-            <a class="link-arrow" href="#contact">Request consulting <span aria-hidden="true">→</span></a>
-          </div>
-        </article>
-      </div>
-    </div>
-  </section>
-
-  <!-- ============================================================ APPROACH -->
-  <section class="sec approach" id="approach" data-reveal>
-    <div class="wrap">
+  <!-- ═══════════════════════════════════════════════════════ THE TWO SERVICES -->
+  <section class="sec">
+    <div class="hall">
       <header class="sec-head">
-        <p class="eyebrow" data-a>The method</p>
-        <h2 class="sec-title" data-a>How a pivot actually&nbsp;happens.</h2>
-        <p class="sec-lead" data-a>A pivot keeps one foot planted while the other changes direction. That's the whole idea — move forward without losing your footing.</p>
+        <p class="eyebrow" data-a>Services</p>
+        <h2 data-a>Two ways I help you turn.</h2>
+        <p class="lead" data-a>Counseling for the person. Consulting for the career and the company. Often the same client needs both, and gets both from the same person.</p>
       </header>
-      <ol class="steps">
-        <li class="step" data-a><span class="step-n">01</span><h3>Ground</h3><p>We start with where you actually are — honestly. No plan works until we're standing on solid, shared ground.</p></li>
-        <li class="step" data-a><span class="step-n">02</span><h3>Assess</h3><p>We map the real options and the trade-offs behind each, so the choice ahead is clear instead of overwhelming.</p></li>
-        <li class="step" data-a><span class="step-n">03</span><h3>Redirect</h3><p>You choose the new direction with confidence, and we shape it into a plan with concrete next steps.</p></li>
-        <li class="step" data-a><span class="step-n">04</span><h3>Move</h3><p>You execute — and I stay in your corner, adjusting as real life pushes back.</p></li>
-      </ol>
-    </div>
-  </section>
 
-  <!-- ============================================================ QUOTE BAND -->
-  <section class="band" data-reveal>
-    <span class="band-pivot" aria-hidden="true"><i></i></span>
-    <div class="wrap band-in">
-      <blockquote data-a>The pivot isn't the end of the play.<br>It's the start of the <em>next one</em>.</blockquote>
-    </div>
-  </section>
-
-  <!-- ============================================================ ABOUT -->
-  <section class="sec about" id="about" data-reveal>
-    <div class="wrap about-in">
-      <figure class="about-img" data-a>
-        <img src="images/youth.jpg" alt="Three young people talking and laughing together at a table" loading="lazy">
-      </figure>
-      <div class="about-copy">
-        <p class="eyebrow" data-a>About Pivot</p>
-        <h2 class="sec-title" data-a>Part counselor, part strategist — fully in your&nbsp;corner.</h2>
-        <p data-a>I work with young people and athletes on the inner game — pressure, identity and direction — and with athletes and businesses on the outer one: the career moves, the brand and the strategy. Life and business rarely sit in separate boxes, so I don't treat them that way.</p>
-        <p data-a>Everything is confidential, judgement-free and grounded in where you actually want to go. You bring the drive. Together, we find the direction.</p>
-        <ul class="about-points" data-a>
-          <li><b>Confidential by default.</b> What's said here stays here.</li>
-          <li><b>Athlete-informed.</b> The pressures of performance, understood first-hand.</li>
-          <li><b>Practical, not theoretical.</b> You leave with a next move, not just insight.</li>
-        </ul>
-      </div>
-    </div>
-  </section>
-
-  <!-- ============================================================ STATS -->
-  <section class="sec stats sec-alt" data-reveal>
-    <div class="wrap stats-in">
-      <div class="stat" data-a><b class="stat-num" data-count="12" data-suffix="+">0</b><span class="stat-label">Years guiding people &amp; teams</span></div>
-      <div class="stat" data-a><b class="stat-num" data-count="300" data-suffix="+">0</b><span class="stat-label">Athletes &amp; clients supported</span></div>
-      <div class="stat" data-a><b class="stat-num" data-count="100" data-suffix="%">0</b><span class="stat-label">Confidential &amp; judgement-free</span></div>
-    </div>
-  </section>
-
-  <!-- ============================================================ TESTIMONIALS -->
-  <section class="sec voices" data-reveal>
-    <div class="wrap">
-      <header class="sec-head"><p class="eyebrow" data-a>In their words</p><h2 class="sec-title" data-a>Turning points, in&nbsp;hindsight.</h2></header>
-      <div class="voice-grid">
-        <figure class="voice" data-a>
-          <blockquote>“I came in thinking my career was over. I left with a plan for a whole new one — and the confidence to run at it.”</blockquote>
-          <figcaption><span class="v-name">Marcus T.</span><span class="v-role">Former college athlete</span></figcaption>
-        </figure>
-        <figure class="voice" data-a>
-          <blockquote>“For the first time, someone helped my son separate who he is from how he performs. It changed everything at home.”</blockquote>
-          <figcaption><span class="v-name">Denise R.</span><span class="v-role">Parent</span></figcaption>
-        </figure>
-        <figure class="voice" data-a>
-          <blockquote>“We were stuck between two directions for a year. Three sessions in, we had a decision — and the nerve to make it.”</blockquote>
-          <figcaption><span class="v-name">Andre &amp; Co.</span><span class="v-role">Small business owner</span></figcaption>
-        </figure>
-      </div>
-    </div>
-  </section>
-
-  <!-- ============================================================ CONTACT -->
-  <section class="sec contact" id="contact" data-reveal>
-    <div class="wrap contact-in">
-      <div class="contact-copy">
-        <p class="eyebrow" data-a>Book a consult</p>
-        <h2 class="sec-title" data-a>The first conversation is free.</h2>
-        <p class="sec-lead" data-a>Tell me a little about where you are. I'll come back within one business day with next steps — no pressure, no obligation.</p>
-        <ul class="contact-list" data-a>
-          <li><span class="cl-k">Email</span><a href="mailto:hello@pivotbusinesssolutions.com">hello@pivotbusinesssolutions.com</a></li>
-          <li><span class="cl-k">Phone</span><a href="tel:+15550123456">(555) 012-3456</a></li>
-          <li><span class="cl-k">Sessions</span>In person &amp; online</li>
-        </ul>
-      </div>
-      <form class="quote-form" id="quoteForm" novalidate data-a>
-        <div class="f-row">
-          <label class="field"><span>Name</span><input type="text" name="name" autocomplete="name" placeholder="Your name" required></label>
-          <label class="field"><span>Email</span><input type="email" name="email" autocomplete="email" placeholder="you@email.com" required></label>
+      <article class="panel scene" data-a>
+        <div class="scene-fig">
+          <div class="tilepic">
+            <img src="images/youth.jpg" alt="Three people in conversation around a table" width="1500" height="1000" loading="lazy">
+          </div>
+          <span class="scene-num">01</span>
         </div>
-        <label class="field"><span>I am a…</span>
-          <select name="who">
-            <option>Athlete</option>
-            <option>Young person / student</option>
-            <option>Parent or guardian</option>
-            <option>Business or organisation</option>
-            <option>Other</option>
-          </select>
-        </label>
-        <label class="field"><span>Where are you right now?</span>
-          <textarea name="details" rows="4" placeholder="A few lines about what's going on and what you'd like help with…"></textarea>
-        </label>
-        <button class="btn btn-primary btn-block btn-lg" type="submit">Request my free consult</button>
-        <p class="f-status" data-status role="status" aria-live="polite"></p>
-        <p class="f-fine">Opens your email app with the details filled in. Nothing is stored by this site, and everything you share is confidential.</p>
-      </form>
+        <div class="scene-body">
+          <h3>Life &amp; Professional Counseling</h3>
+          <p>One-to-one counseling for athletes and young people: mental performance, identity beyond the sport, pressure, transitions, and the decisions that shape what comes next. Confidential, practical, and built around you.</p>
+          <ul class="points">
+            <li>Performance mindset and managing pressure</li>
+            <li>Identity and life after competition</li>
+            <li>Purpose, relationships, and direction</li>
+          </ul>
+          <a class="link-arrow" href="counseling.html">About counseling <span aria-hidden="true">→</span></a>
+        </div>
+      </article>
+
+      <article class="panel scene flip" data-a>
+        <div class="scene-fig">
+          <div class="tilepic">
+            <img src="images/consult.jpg" alt="Two people shaking hands across a table after an agreement" width="1500" height="1001" loading="lazy">
+          </div>
+          <span class="scene-num">02</span>
+        </div>
+        <div class="scene-body">
+          <h3>Athlete &amp; Business Consulting</h3>
+          <p>Strategic guidance for athletes managing a career and a brand, and for businesses ready to change course. We map the options, weigh the risk, and build a plan you can actually move on, then stay in your corner while you execute.</p>
+          <ul class="points">
+            <li>Career, brand, and transition planning for athletes</li>
+            <li>Business strategy, operations, and growth</li>
+            <li>Decision support at the crossroads</li>
+          </ul>
+          <a class="link-arrow" href="consulting.html">About consulting <span aria-hidden="true">→</span></a>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════ QUOTE BAND -->
+  <section class="band">
+    <div class="padrao" aria-hidden="true"></div>
+    <div class="hall band-in">
+      <i class="fleuron" aria-hidden="true"></i>
+      <blockquote data-a>The pivot isn't the end of the play. It's the start of the <em>next one</em>.</blockquote>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════ APPROACH -->
+  <section class="sec">
+    <div class="hall">
+      <header class="sec-head center">
+        <p class="eyebrow" data-a>The method</p>
+        <h2 data-a>How a pivot actually happens.</h2>
+        <p class="lead" data-a>A pivot keeps one foot planted while the other changes direction. That is the whole idea: move forward without losing your footing.</p>
+      </header>
+
+      <ol class="walk">
+        <li class="panel" data-a><span class="step-n">01</span><h3>Ground</h3><p>We start with where you actually are, honestly. No plan works until we are standing on solid, shared ground.</p></li>
+        <li class="panel" data-a><span class="step-n">02</span><h3>Assess</h3><p>We map the real options and the trade-offs behind each, so the choice ahead is clear instead of overwhelming.</p></li>
+        <li class="panel" data-a><span class="step-n">03</span><h3>Redirect</h3><p>You choose the new direction with confidence, and we shape it into a plan with concrete next steps.</p></li>
+        <li class="panel" data-a><span class="step-n">04</span><h3>Move</h3><p>You execute, and I stay in your corner, adjusting as real life pushes back.</p></li>
+      </ol>
+
+      <p class="center mt-2" data-a><a class="link-arrow" href="approach.html">The full approach <span aria-hidden="true">→</span></a></p>
+    </div>
+  </section>
+
+  <div class="frieze-band"><div class="hall"><div class="frieze"></div></div></div>
+
+  <!-- ═══════════════════════════════════════════════════════ FIGURES (UNPAINTED) -->
+  <section class="sec">
+    <div class="hall">
+      <header class="sec-head center">
+        <p class="eyebrow" data-a>By the numbers</p>
+        <h2 data-a>Panels awaiting their painter.</h2>
+      </header>
+
+      <div class="figures">
+        <!-- PLACEHOLDER FIGURE — sample value only, not a published claim. -->
+        <div class="panel figure-tile unfired" data-a>
+          <span class="unfired-tag">Unpainted</span>
+          <b class="stat-num">12+</b>
+          <span class="stat-label">Years guiding people &amp; teams</span>
+        </div>
+        <!-- PLACEHOLDER FIGURE — sample value only, not a published claim. -->
+        <div class="panel figure-tile unfired" data-a>
+          <span class="unfired-tag">Unpainted</span>
+          <b class="stat-num">300+</b>
+          <span class="stat-label">Athletes &amp; clients supported</span>
+        </div>
+        <!-- A stated commitment, not a statistic, so this tile is fired. -->
+        <div class="panel figure-tile" data-a>
+          <b class="stat-num">100%</b>
+          <span class="stat-label">Confidential &amp; judgment-free</span>
+        </div>
+      </div>
+
+      <p class="unfired-note note-center" data-a>
+        <span><b>Two of these tiles are unpainted.</b> The figures shown are illustrative placeholders drawn in outline, not verified claims. They stay unfired until the practice supplies its real numbers. The replacement checklist is in the project README.</span>
+      </p>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════ VOICES (UNPAINTED) -->
+  <section class="sec sec-tight">
+    <div class="hall">
+      <header class="sec-head center">
+        <p class="eyebrow" data-a>In their words</p>
+        <h2 data-a>Turning points, in hindsight.</h2>
+      </header>
+
+      <div class="voices">
+        <!-- PLACEHOLDER TESTIMONIAL — sample copy, not a real client. -->
+        <figure class="panel voice unfired" data-a>
+          <span class="unfired-tag">Unpainted</span>
+          <blockquote>“I came in thinking my career was over. I left with a plan for a whole new one, and the confidence to run at it.”</blockquote>
+          <figcaption><span class="v-name">Sample voice</span><span class="v-role">Former college athlete</span></figcaption>
+        </figure>
+        <!-- PLACEHOLDER TESTIMONIAL — sample copy, not a real client. -->
+        <figure class="panel voice unfired" data-a>
+          <span class="unfired-tag">Unpainted</span>
+          <blockquote>“For the first time, someone helped my son separate who he is from how he performs. It changed everything at home.”</blockquote>
+          <figcaption><span class="v-name">Sample voice</span><span class="v-role">Parent</span></figcaption>
+        </figure>
+        <!-- PLACEHOLDER TESTIMONIAL — sample copy, not a real client. -->
+        <figure class="panel voice unfired" data-a>
+          <span class="unfired-tag">Unpainted</span>
+          <blockquote>“We were stuck between two directions for a year. Three sessions in, we had a decision and the nerve to make it.”</blockquote>
+          <figcaption><span class="v-name">Sample voice</span><span class="v-role">Small business owner</span></figcaption>
+        </figure>
+      </div>
+
+      <p class="unfired-note note-center" data-a>
+        <span><b>These three panels are unpainted.</b> The quotes are written samples showing what a real testimonial would look like here. No client said them. Replace them with real, permissioned testimonials, or delete the section, before going live.</span>
+      </p>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════ CLOSE -->
+  <section class="sec">
+    <div class="hall">
+      <div class="panel cta-close" data-a>
+        <i class="fleuron" aria-hidden="true"></i>
+        <h2 class="mt-1">The first conversation is free.</h2>
+        <p>Tell me a little about where you are. I'll come back within one business day with next steps. No pressure, no obligation.</p>
+        <a class="btn" href="contact.html">Book a free consult <span class="arr" aria-hidden="true">→</span></a>
+      </div>
     </div>
   </section>
 </main>
 
-<!-- ============================================================ FOOTER -->
+<!-- ═══════════════════════════════════════════════════════ FOOTER -->
 <footer class="foot">
-  <div class="wrap foot-in">
+  <div class="frieze-band"><div class="hall"><div class="frieze"></div></div></div>
+  <div class="hall foot-in">
     <div class="foot-brand">
-      <a class="brand" href="#top">
-        <svg class="brand-mark" viewBox="0 0 32 32" aria-hidden="true">
-          <path d="M9 23 A12 12 0 0 1 22.5 10.5" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/>
-          <path d="M22.5 10.5 L18.4 11 M22.5 10.5 L22 14.7" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
-          <circle cx="9" cy="23" r="2.8" fill="currentColor"/>
-        </svg>
-        <span class="brand-txt"><span class="brand-name">Pivot</span><span class="brand-sub">Business Solutions</span></span>
+      <a class="brand" href="index.html">
+        <i class="pivot-mark" aria-hidden="true"></i>
+        <span class="brand-txt">
+          <span class="brand-name">Pivot</span>
+          <span class="brand-sub">Business Solutions</span>
+        </span>
       </a>
-      <p>Counseling &amp; consulting for athletes, young people and the businesses behind them.</p>
+      <p>Counseling and consulting for athletes, young people, and the businesses behind them.</p>
     </div>
-    <nav class="foot-nav" aria-label="Footer">
-      <h4>Explore</h4>
-      <a href="#help">Who I help</a>
-      <a href="#services">Services</a>
-      <a href="#approach">Approach</a>
-      <a href="#about">About</a>
+    <nav class="foot-nav" aria-label="Footer routes">
+      <h4>The hall</h4>
+      <a href="who-i-help.html">Who I help</a>
+      <a href="counseling.html">Counseling</a>
+      <a href="consulting.html">Consulting</a>
+      <a href="approach.html">Approach</a>
+      <a href="about.html">About</a>
     </nav>
     <div class="foot-nav">
       <h4>Get in touch</h4>
-      <a href="mailto:hello@pivotbusinesssolutions.com">Email</a>
+      <!-- PLACEHOLDER CONTACT — replace with the practice's real address and number. -->
+      <a href="mailto:hello@pivotbusinesssolutions.com">hello@pivotbusinesssolutions.com</a>
       <a href="tel:+15550123456">(555) 012-3456</a>
-      <a href="#contact">Book a consult</a>
+      <a href="contact.html">Book a consult</a>
     </div>
   </div>
-  <div class="wrap foot-bot">
+  <div class="hall foot-bot">
     <p>© <span data-year>2026</span> Pivot Business Solutions LLC. All rights reserved.</p>
     <p class="foot-slogan">Find your pivot.</p>
   </div>

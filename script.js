@@ -1,129 +1,121 @@
 /* ============================================================
-   PIVOT BUSINESS SOLUTIONS — interactions (vanilla, no deps)
-   theme toggle · nav-over-hero · scroll reveals · counters
-   · mobile menu · quote form. Respects reduced motion.
+   PIVOT BUSINESS SOLUTIONS — AZULEJO STATION HALL
+   Vanilla, no dependencies, no build.
+
+   Motion in this hall is one idea: glaze flooding line work in the kiln.
+   Panels do not slide or bounce; their ink washes in from the top edge.
+   Nothing is hidden from a visitor whose JS never runs — the wash styles
+   are scoped to .js, which the inline head partner of this file sets.
    ============================================================ */
-(function () {
+(() => {
   'use strict';
-  var REDUCE = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  var doc = document.documentElement;
 
-  /* ---- theme toggle ---- */
-  var themeBtn = document.getElementById('themeBtn');
+  const REDUCE = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const root = document.documentElement;
+
+  /* ---- 1. kiln: light glaze / dark glaze, remembered ---- */
+  const themeBtn = document.getElementById('themeBtn');
   if (themeBtn) {
-    themeBtn.addEventListener('click', function () {
-      var cur = doc.getAttribute('data-theme');
-      if (!cur) cur = (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) ? 'dark' : 'light';
-      var next = cur === 'dark' ? 'light' : 'dark';
-      doc.setAttribute('data-theme', next);
-      try { localStorage.setItem('pivot-theme', next); } catch (e) {}
+    themeBtn.addEventListener('click', () => {
+      let current = root.getAttribute('data-theme');
+      if (!current) {
+        const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+        current = prefersDark ? 'dark' : 'light';
+      }
+      const next = current === 'dark' ? 'light' : 'dark';
+      root.setAttribute('data-theme', next);
+      themeBtn.setAttribute('aria-label', next === 'dark' ? 'Switch to the light glaze' : 'Switch to the dark glaze');
+      try { localStorage.setItem('pivot-theme', next); } catch (e) { /* private mode */ }
     });
   }
 
-  /* ---- nav state (transparent white over hero, solid past it) + progress ---- */
-  var nav = document.getElementById('nav');
-  var hero = document.getElementById('hero');
-  var progress = document.querySelector('[data-progress]');
-  var NAVH = 74;
-  function onScroll() {
-    var y = window.scrollY || window.pageYOffset;
-    var threshold = (hero ? hero.offsetHeight : 480) - NAVH - 40;
-    var overHero = hero ? y < threshold : false;
-    document.body.classList.toggle('hero-active', overHero);
-    if (nav) nav.classList.toggle('scrolled', !overHero);
-    if (progress) {
-      var max = doc.scrollHeight - doc.clientHeight;
-      progress.style.transform = 'scaleX(' + (max > 0 ? y / max : 0) + ')';
-    }
-  }
-  window.addEventListener('scroll', onScroll, { passive: true });
-  window.addEventListener('resize', onScroll);
-  onScroll();
-
-  /* ---- mobile menu ---- */
-  var toggle = document.getElementById('navToggle');
-  var menu = document.getElementById('mobileMenu');
-  if (toggle && menu) {
-    toggle.addEventListener('click', function () {
-      var open = menu.classList.toggle('open');
-      toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
-      toggle.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+  /* ---- 2. the route list on narrow frames ---- */
+  const routeToggle = document.getElementById('routeToggle');
+  const mobileRoutes = document.getElementById('mobileRoutes');
+  if (routeToggle && mobileRoutes) {
+    const setOpen = (open) => {
+      mobileRoutes.classList.toggle('open', open);
+      routeToggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+      routeToggle.setAttribute('aria-label', open ? 'Close the route list' : 'Open the route list');
+    };
+    routeToggle.addEventListener('click', () => {
+      setOpen(!mobileRoutes.classList.contains('open'));
     });
-    menu.addEventListener('click', function (e) {
-      if (e.target.closest('a')) {
-        menu.classList.remove('open');
-        toggle.setAttribute('aria-expanded', 'false');
-        toggle.setAttribute('aria-label', 'Open menu');
+    mobileRoutes.addEventListener('click', (e) => {
+      if (e.target.closest('a')) setOpen(false);
+    });
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && mobileRoutes.classList.contains('open')) {
+        setOpen(false);
+        routeToggle.focus();
       }
     });
   }
 
-  /* ---- reveals + counters ---- */
-  function reveal(scope, stagger) {
-    var items = scope.querySelectorAll('[data-a]');
-    for (var i = 0; i < items.length; i++) {
-      if (!REDUCE && stagger) items[i].style.transitionDelay = (i * 70) + 'ms';
-      items[i].classList.add('in');
-    }
-  }
-  function count(scope) {
-    var nums = scope.querySelectorAll('[data-count]');
-    for (var i = 0; i < nums.length; i++) {
-      (function (el) {
-        if (el.dataset.done) return; el.dataset.done = '1';
-        var to = parseFloat(el.dataset.count), suf = el.dataset.suffix || '';
-        if (REDUCE) { el.textContent = to + suf; return; }
-        var start = null, dur = 1400;
-        function step(ts) {
-          if (start === null) start = ts;
-          var p = Math.min((ts - start) / dur, 1);
-          var eased = 1 - Math.pow(1 - p, 3);
-          el.textContent = Math.round(to * eased) + suf;
-          if (p < 1) requestAnimationFrame(step);
-        }
-        requestAnimationFrame(step);
-      })(nums[i]);
-    }
-  }
+  /* ---- 3. the glaze wash ---- */
+  const washables = document.querySelectorAll('[data-a]');
+  const flood = (el, delay) => {
+    if (!REDUCE && delay) el.style.transitionDelay = `${delay}ms`;
+    el.classList.add('in');
+  };
 
-  // hero reveals on load (not a [data-reveal] section)
-  if (hero) reveal(hero, true);
-
-  var sections = document.querySelectorAll('[data-reveal]');
-  if (!('IntersectionObserver' in window)) {
-    for (var s = 0; s < sections.length; s++) { reveal(sections[s], false); count(sections[s]); }
+  if (!('IntersectionObserver' in window) || REDUCE) {
+    washables.forEach((el) => flood(el, 0));
   } else {
-    var io = new IntersectionObserver(function (entries) {
-      entries.forEach(function (e) {
-        if (e.isIntersecting) { reveal(e.target, true); count(e.target); io.unobserve(e.target); }
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (!entry.isIntersecting) return;
+        const group = entry.target.parentElement || document.body;
+        const siblings = group.querySelectorAll(':scope > [data-a]');
+        const index = Array.prototype.indexOf.call(siblings, entry.target);
+        flood(entry.target, Math.max(0, index) * 80);
+        io.unobserve(entry.target);
       });
-    }, { threshold: 0.12, rootMargin: '0px 0px -8% 0px' });
-    for (var k = 0; k < sections.length; k++) io.observe(sections[k]);
+    }, { threshold: 0.1, rootMargin: '0px 0px -6% 0px' });
+    washables.forEach((el) => io.observe(el));
   }
 
-  /* ---- quote form → mailto ---- */
-  var form = document.getElementById('quoteForm');
+  /* ---- 4. the consult request → the visitor's own mail client ---- */
+  /* PLACEHOLDER: swap this address for the practice's real one.
+     It also appears in the contact panel and the footer of every page. */
+  const CONSULT_ADDRESS = 'hello@pivotbusinesssolutions.com';
+
+  const form = document.getElementById('consultForm');
   if (form) {
-    var status = form.querySelector('[data-status]');
-    form.addEventListener('submit', function (e) {
+    const status = form.querySelector('[data-status]');
+    form.addEventListener('submit', (e) => {
       e.preventDefault();
-      var name = form.name.value.trim();
-      var email = form.email.value.trim();
-      var who = form.who.value;
-      var details = form.details.value.trim();
-      var emailOk = /^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email);
-      var ok = true;
-      form.name.classList.toggle('invalid', !name); if (!name) ok = false;
-      form.email.classList.toggle('invalid', !emailOk); if (!emailOk) ok = false;
-      if (!ok) { status.textContent = 'Please add your name and a valid email address.'; status.classList.add('is-error'); return; }
+      const name = form.name.value.trim();
+      const email = form.email.value.trim();
+      const who = form.who.value;
+      const details = form.details.value.trim();
+      const emailOk = /^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email);
+
+      form.name.classList.toggle('invalid', !name);
+      form.email.classList.toggle('invalid', !emailOk);
+
+      if (!name || !emailOk) {
+        status.textContent = 'Please add your name and an email address I can reply to.';
+        status.classList.add('is-error');
+        (name ? form.email : form.name).focus();
+        return;
+      }
+
       status.classList.remove('is-error');
       status.textContent = 'Opening your email app with the details filled in…';
-      var subject = encodeURIComponent('Consult request — ' + who);
-      var body = encodeURIComponent('Name: ' + name + '\nEmail: ' + email + '\nI am a: ' + who + '\n\n' + (details || 'Where I am right now: '));
-      window.location.href = 'mailto:hello@pivotbusinesssolutions.com?subject=' + subject + '&body=' + body;
+
+      const subject = encodeURIComponent(`Consult request — ${who}`);
+      const body = encodeURIComponent(
+        `Name: ${name}\n` +
+        `Email: ${email}\n` +
+        `I am a: ${who}\n\n` +
+        (details || 'Where I am right now: ')
+      );
+      window.location.href = `mailto:${CONSULT_ADDRESS}?subject=${subject}&body=${body}`;
     });
   }
 
-  var year = document.querySelector('[data-year]');
+  /* ---- 5. the year in the footer ---- */
+  const year = document.querySelector('[data-year]');
   if (year) year.textContent = new Date().getFullYear();
 })();
