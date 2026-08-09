@@ -452,9 +452,14 @@ a.svc:hover{color:var(--amber)}
 .tba{border:1px dashed #5A4200}
 .tba-tag{display:inline-block;font-family:var(--board-face);font-weight:700;font-size:.62rem;text-transform:uppercase;
   letter-spacing:.2em;color:var(--amber);border:1px dashed var(--amber);border-radius:var(--r);padding:.3rem .55rem;margin-bottom:.9rem}
-.note{display:flex;gap:.7rem;font-family:var(--notice);font-size:.86rem;line-height:1.55;color:var(--paint-3);
-  margin:1.1rem 0 0;max-width:74ch}
-.note::before{content:'';flex:none;width:3px;background:var(--amber);border-radius:2px}
+/* A printed notice pinned beside the board. It carries a station label
+   rather than a coloured side stripe — the floor refuses that stripe, and
+   the board has no such device anyway. */
+.note{display:block;font-family:var(--notice);font-size:.86rem;line-height:1.55;color:var(--paint-3);
+  margin:1.2rem 0 0;max-width:74ch;border:1px solid var(--steel-3);border-radius:var(--r);
+  padding:.85rem clamp(.9rem,1.6vw,1.15rem)}
+.note::before{content:'Notice';display:block;font-family:var(--board-face);font-weight:700;font-size:.6rem;
+  text-transform:uppercase;letter-spacing:.22em;color:var(--amber);margin-bottom:.5rem}
 .note b{color:var(--paint-2);font-weight:600}
 .note-center{margin-inline:auto}
 .ph{border-bottom:1px dashed var(--amber)}

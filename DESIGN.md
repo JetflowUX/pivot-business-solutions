@@ -2,194 +2,199 @@
 
 <!-- impeccable:design-schema 1 -->
 
-Recorded from the built world, not from intention. Seed key `e9ffcc1f`.
+Recorded from the built world, not from intention. Seed key `08b7696e`.
 The binding contract is the HTML comment at the top of `<body>` in `index.html`.
 
 ## The world
 
-**Azulejo station hall.** A Portuguese tin-glazed tile hall, of the kind that
-lines a nineteenth-century railway station: framed narrative panels walked in
-order, cobalt oxide painted on milk-white glaze, ornamental friezes marking
-where one panel ends and the next begins, and grout seams running dead straight
-through every scene, including through faces.
+**Concourse departure board.** A rail station split-flap board at rush hour:
+matte flap faces in fixed character cells, white paint capitals, brushed steel
+surrounds bolted at the corners, and one amber lamp marking the row that
+matters. The site is the board.
 
-It was chosen by the user over the roll's own assigned direction. The world it
-replaced — warm ivory ground, high-contrast serif, gold accent, soft cards — is
-the category default for a counseling practice and is treated here as
-anti-reference. The ground is held **deliberately cool** for that reason; a warm
-ivory would put the site back where it started.
+It replaced an azulejo tile hall, which the user rejected as reading floral and
+ceremonial rather than athletic. That hall, and the warm-ivory serif-and-gold
+wellness page before it, are both anti-reference. The direction was the user's
+pick from the catalog challengers, over the roll's own assigned grounded
+direction (a training-room return-to-play protocol sheet).
 
 Three rules govern everything:
 
-1. **Cobalt on milk white only.** Mustard appears solely inside border frames,
-   ornament, and one accent word. There is no third hue.
-2. **The seam is never hidden.** The tile grid crosses panels, photographs and
-   figures without exception. It is the surface admitting how it was made.
-3. **Layout snaps to a whole tile.** `--tile` is the unit; every padding,
-   measure and container width is a multiple of it.
+1. **The row never leaves the board; only its destination changes.** That is
+   the pivot, and it is why this world was chosen. Rows are the page structure
+   everywhere — modules divided by hairlines, never a grid of cards.
+2. **One signal.** Amber is the only accent on the board. Red is defined and
+   reserved for a cancelled state the product does not currently have.
+3. **Columns never move.** Every table, module and row list is tabular and
+   left-aligned, with the status always last.
 
 ## Platform
 
 Static HTML/CSS/JS. No build step, no framework, no external requests.
 Seven routes, one shared `styles.css` and `script.js`.
 
+## One glaze
+
+There is no light theme and no theme toggle. A departure board is black; the
+visitor is often on a phone, late, after a hard day. The user had also asked
+for the light theme to be removed before this redesign, and that decision
+carries forward. `color-scheme: dark` is declared so native controls follow.
+
 ## Tokens
 
-All in `:root` in `styles.css`, re-declared for the dark glaze under both
-`[data-theme=dark]` and `@media (prefers-color-scheme: dark)`.
+All in `:root` in `styles.css`.
+
+### Palette
+
+| Token | Value | Role |
+|---|---|---|
+| `--flap` | `#0D0D0F` | concourse dark, the page ground |
+| `--flap-top` / `--flap-bot` | `#1B1B1E` / `#0A0A0C` | the two halves of a flap, split by the hinge |
+| `--paint` | `#F2F2F2` | the letter itself |
+| `--paint-2` | `#9AA0A8` | secondary reading, 6.2:1 on flap |
+| `--paint-3` | `#7D838C` | labels and captions, 5.1:1 on flap |
+| `--amber` | `#FFB400` | the row lamp — actions, live rows, active nav. 10.8:1 |
+| `--red` / `--red-txt` | `#D32F2F` / `#FF6F63` | cancelled: fills vs text (text lifted to 7.1:1) |
+| `--green` | `#5BD07A` | the running lamp on the reply-time line |
+| `--steel-2/3/4` | `#7D838C` / `#2A2C31` / `#3C3F45` | frame edge, board hairline, control edge |
+
+`--board` is the flap face itself: a three-stop gradient with the hinge line
+dead across the middle. `--brushed` is the steel: a five-stop gradient.
 
 ### Measure
 
-| Token | Light | Notes |
+| Token | Value | Notes |
 |---|---|---|
-| `--tile` | `34px` → `40px` @700 → `44px` @1100 | the unit everything snaps to |
-| `--hall-w` | `min(100vw - tile, tile*27)` | container width |
-| `--gutter` | `(100vw - hall-w)/2` | resolved once so panels can bleed to the wall edge without guessing their grid cell |
-| `--vol` | `34px` → `44px` | cartouche corner volute |
+| `--hall` | `min(100% - 1.6rem, 1320px)`, gutter widens at 760 | container |
+| `--rail` | `3px` | the steel rail that closes a band |
+| `--frame` | `6px` → `11px` at 760 | the steel surround, and the gap between panels inside it |
+| `--r` | `3px` | the board is a rectangle, so is everything on it |
 
-### Glaze
-
-| Token | Light | Dark | Role |
-|---|---|---|---|
-| `--ground` | `#EFF0EC` | `#061C46` | the tiled wall |
-| `--panel` | `#FAFAF7` | `#0A2758` | a glazed tile face |
-| `--panel-2` | `#F4F5F1` | `#0C2E66` | station, masthead, frieze band, footer |
-| `--ink` | `#0D3B8E` | `#EDF2FB` | cobalt line work |
-| `--ink-2` | `#2E5CA8` | `#C3D6F1` | body secondary |
-| `--ink-3` | `#3F66A4` | `#93B2DF` | small labels and captions |
-| `--line` | `#A8C3E6` | `#2E5CA8` | grout edge, frames, dividers |
-| `--line-2` | `#DCE5F3` | `#17417F` | internal hairlines |
-| `--seam-c` / `--seam-panel` | `#DEE0D9` / `#E4E7DF` | translucent | grout on the wall / on a tile |
-| `--gold` | `#B9820C` | `#EFC456` | accent text, underlines |
-| `--gold-orn` | `#E4B22A` | `#E9BE45` | ornament mustard |
-| `--band-bg/-ink/-accent` | cobalt / white / mustard | same | the quote band holds cobalt in **both** glazes so its mustard never lands on a light ground |
-
-`--ink-3` is pinned to ≥4.5:1 against both `--panel` and the slightly darker
-`--ground`. In a one-colour medium, hierarchy comes from size, weight and
-tracking — never from fading text toward the ground.
-
-### Dark is not a filter
-
-The dark glaze is the **reverse firing**: white line work on deep cobalt, the
-way a reverse-painted tile is made. Photographs keep their cobalt duotone and
-dim slightly (`--pic-bright: .86`); the seam overlay switches from `multiply`
-to `screen`.
+The 3px radius is a deliberate world override of the craft floor's 12–16px
+card radii. There are no cards here, and a flap has square corners.
 
 ## Type
 
+One family, two widths, both self-hosted woff2 (SIL OFL), preloaded.
+
 | Role | Face | Setting |
 |---|---|---|
-| Display | **Cinzel** 400/600/700 | inscriptional roman capitals, the lettering brushed into a cartouche. Always uppercase, tracked `.02–.2em` |
-| Text | **EB Garamond** 400/500/600 + italic | old-style, `onum` figures on, 1.68 line-height |
+| Board voice | **Archivo Narrow** 400–700 | uppercase, tracked `.06–.24em`. Headings, nav, labels, statuses, table data, buttons |
+| Notice voice | **Archivo** 400–700 | sentence case, 1.62 line-height. Paragraphs and form fields |
 
-Both self-hosted woff2 (SIL OFL), preloaded, `font-display: swap`.
+The board voice is the site's chrome; the notice voice is what a station
+actually pins up beside the board, and it exists because tracked capitals are
+unreadable at paragraph length for a visitor under stress.
 
-**Display measures are set in `em` of the heading's own size**, never in `ch`.
-A `ch` resolves against the body face; used on a Cinzel display heading it
-produces a two-words-per-line ribbon. `.sec-head h2` is `15em`,
-`.band blockquote` is `14em`, `.masthead-in` is sized in tiles.
+**Display measures are set in `em` of the heading's own size, never in `ch`.**
+A `ch` resolves against the body face; applied to a cell-split board heading it
+breaks the line mid-word. `.masthead h1` is `27em`, `.band blockquote` is
+`15em`. This trap was hit and fixed during the build.
 
-## Ornament
+## The flap cell
 
-Five authored SVGs in `images/`, each worn as a **CSS mask** so its ink is a
-token and one file serves both glazes.
+The signature material. `script.js` splits any `[data-flap]` element into one
+`<span class="cell">` per character, each `.68em × 1.2em`, separated by 2px
+seams, with hinge pins drawn at the left and right edges.
 
-| File | Use |
-|---|---|
-| `orn-frieze.svg` | 60×44 running scroll: two ink weights, filled acanthus, large volutes, hairline rules top and bottom |
-| `orn-frieze-accent.svg` | the mustard pass of the same unit, registered to it |
-| `orn-corner.svg` | 64×64 cartouche corner volute, rotated 90/180/270 for the other corners |
-| `orn-fleuron.svg` | divider fleuron |
-| `orn-padrao.svg` | seamlessly tiling pattern field |
-| `orn-pivot.svg` | the brand device: one foot planted (quatrefoil), the other turning (quarter arc) |
+The element itself carries a **field of empty flaps** as a background whose
+pitch is the cell plus its seam, so painted cells land exactly on the field's
+grid and the unused flaps to the right of a short line stay visible. That field
+is what makes the headline read as a board rather than as tracked type.
 
-The frieze is laid up in **two passes** — a cobalt mask layer and a mustard mask
-layer stacked as `::before` / `::after` — because the tile itself is painted in
-two inks. It renders at `--tile * 1.45` (~64px).
+Cells are `<span>`, not `<i>`: an `<i>` made every glyph inherit italic and the
+browser synthesised an oblique across the entire headline.
+
+Without JS the same text renders as tracked capitals and reads perfectly; all
+cell styling is scoped to `html.js`.
 
 ## Components
 
-- **`.panel`** — the glazed tile. Elevation is declared **once**, as the fired
-  surface: a grout border plus an inset glaze highlight and shade plus a radial
-  glaze pool. No drop shadow under a hairline border; that combination is the
-  ghost card.
-- **`.cartouche`** — the frame device: double rule plus four corner volutes in
-  mustard. Used for the hero plate and the mural badge, not as a card.
-- **`.registers`** — the hall's answer to a row of cards: **one** panel divided
-  by grout into registers of unequal column width (`1.22fr 1fr 1fr`). Same-size
-  icon+heading+text cards are not the page structure anywhere on this site.
-- **`.scene`** — a painted photograph butted against a text panel, the strongest
-  region in the build.
-- **`.tilepic`** — a photograph is not pasted onto the hall, it is fired into
-  it: `grayscale` + `contrast`, `mix-blend-mode: screen` over cobalt for a true
-  duotone, then the same grout seams overlaid straight through it.
-- **`.btn`** — a plaque: solid cobalt with an inner keyline. `.btn-ghost` is the
-  outlined variant.
-- **`.step-n`** — numbered plate. Used **only** where the sequence carries
-  information (the four-step walk, the engagement stages). Parallel offerings
-  are not numbered.
-
-## The honesty system
-
-The user's constraint was that invented content stay visible but be
-unmistakably marked. The world's own missing-content state carries it:
-**a panel that has not been painted yet.**
-
-- `.unfired` — dashed cobalt frame, mustard `UNPAINTED` tag.
-- Display figures render as **outline** (`-webkit-text-stroke`): at 50px a
-  hollow numeral is the clearest possible "not fired yet". Body copy does not
-  survive that treatment, so an unpainted quote keeps solid ink and is marked
-  by its frame, tag and note instead.
-- `.ph` / `.ph-note` — placeholder contact details carry a dashed underline and
-  a visible note on **every** route, not an HTML comment the visitor never sees.
-- Every unpainted region is followed by a plain-language note naming exactly
-  what is illustrative and what must replace it.
-
-This is the one device that turns a constraint into design. Do not dilute it,
-and do not quietly fire those tiles without real content.
+- **`.frame`** — the steel surround. Elevation is declared **once**, as the
+  frame; no shadow is ever stacked under it. Four screws are drawn as corner
+  radial-gradients at ≥760px. Panels inside carry their own flap ground so the
+  steel keeps showing through every gap.
+- **`.board`** — a real `<table>`. Service (with a sub-line naming who it is
+  for) and Status. `tr.next` is the lit row: amber text, amber left lamp, and a
+  warmer flap gradient. It is always the free first conversation.
+- **`.status`** — rectangular chip. `live` amber, `open` steel, `tba` dashed
+  amber, `off` red.
+- **`.board-legend`** — teaches the two states the visitor has to trust: what
+  is lit, what is not announced.
+- **`.module` + `.rows`** — the board's answer to a row of cards: one framed
+  module divided by hairlines into keyed rows. Same-size icon-heading-text
+  cards appear nowhere on this site.
+- **`.calls`** — the calling-point route. Stacked with a rail down the margin
+  on narrow frames; at ≥920px it turns and runs left to right as a carriage
+  diagram. Numbered because the sequence carries information.
+- **`.plate`** — a photograph is not pasted onto the board, it is seen through
+  concourse glass: `grayscale(.34) contrast(1.1) brightness(.82)` under a
+  left-right vignette, rail-capped.
+- **`.note`** — a printed notice with a station label, bordered. It carries no
+  coloured side stripe; the floor refuses that and the board has no such device.
 
 ## Motion
 
-**One authored moment, not an entrance on every section.** Motion is a single
-idea: glaze flooding line work in the kiln. A mask gradient sweeps down the
-element while its opacity comes up — no transforms, no slide, no bounce.
+**One authored moment: the board setting itself.** Character cells flip down
+from the hinge (`rotateX(-92deg) → 0`, origin top), left to right at 16ms per
+cell capped at 760ms, then the table rows land behind them. Nothing else on the
+site moves. `--ease` is `cubic-bezier(.16, 1, .3, 1)`.
 
-It is spent on the hero plate and the quote band only (`data-a`, one or two per
-page). Everything else is visible on arrival. `--ease` is
-`cubic-bezier(.16, 1, .3, 1)`, an exponential ease-out.
+Under `prefers-reduced-motion: reduce` both are forced visible with no
+transition. With JS disabled nothing is hidden.
 
-Under `prefers-reduced-motion: reduce` the mask is removed entirely. With JS
-disabled nothing is hidden — the wash styles are scoped to `.js`.
+## The honesty system
+
+The board's own missing-content state carries the user's constraint that
+invented content stay visible but unmistakably marked: **a departure with
+nothing confirmed reads TBA.**
+
+- `.status-tba` — dashed amber chip, used on the home board for fees.
+- `.tba` / `.tba-tag` — dashed panel plus an amber TBA tag, on placeholder
+  figures, testimonials, and the entire About bio panel.
+- `.figure.tba b` — the numeral renders as an **outline** (`-webkit-text-stroke`),
+  so a hollow figure is legible as "not confirmed" at a glance.
+- `.ph` / `.ph-note` — placeholder contact details carry a dashed amber
+  underline and a visible note, on **every** route.
+- Every unannounced region is followed by a plain-language `.note` naming
+  exactly what is illustrative and what must replace it.
+
+Do not quietly confirm these rows without real content.
 
 ## Browser surfaces
 
-Themed from the palette, not left to the browser: `::selection`, `caret-color`,
-`accent-color`, scrollbar track and thumb, focus ring (3px `--ink`, ≥10:1),
-underline offset, and `tabular-nums` on figures.
+Themed from the palette: `::selection`, `caret-color`, `accent-color`,
+scrollbar track and thumb, focus ring (2.5px amber), placeholder colour, and
+`tabular-nums` on board figures.
 
 ## Responsive
 
-Breakpoints follow the tile: 560 / 620 / 640 / 700 / 760 / 820 / 860 / 900 /
-960 / 1000 / 1100. Registers stack to rows below 820. `.scene` stacks below 860.
-On narrow frames the hero mural **leads** (`order: -1`, 29vh) so the mural and
-the frieze both land in the first viewport, as the direction contract promises.
-The primary action is verified above the fold at 1440×900, 1280×800 and 390×844.
+Breakpoints: 520 / 560 / 600 / 680 / 760 / 800 / 860 / 880 / 900 / 920 / 980 /
+1000. The hero assembly splits at 980, the calling points turn horizontal at
+920, the route list collapses to a burger below 1000. Verified with no
+horizontal overflow at a true 375px viewport on all seven routes.
 
 ## Verified
 
-- Bundled design detector: zero findings across all 7 routes + `styles.css`.
-- WCAG AA on rendered text: 7 routes × 2 glazes × 2 widths, zero failures.
-- All internal link targets resolve.
-- No-JS content visible; reduced-motion honoured; theme persists across routes;
-  skip link is the first tab stop; Escape closes the route list; form
-  validation focuses the offending field.
+- Bundled design detector: zero findings across all 7 routes, `styles.css`
+  and `script.js`.
+- No horizontal overflow at 375px on any route (measured, not eyeballed).
+- All 213 internal link and asset targets resolve.
+- Every route returns 200 on a server with no URL rewriting.
+- No-JS content visible; reduced-motion honoured; Escape closes the route list;
+  form validation focuses the offending field.
 
 ## Known gaps
 
-- **No painted mural asset.** The hero wants a real blue-underglaze tile mural.
-  No image generation was available in this environment, so it is a cobalt
-  duotone of a photograph under seams. This is the largest remaining distance
-  between the build and the world.
-- Three stock photographs are reused across routes; one (`youth.jpg`) is a
-  weak semantic fit for the counseling panels.
+- **The row-flip is not built.** A split-flap board's most characteristic
+  device is a row clacking over to a new destination. The flip is built on the
+  headline cells only; table rows land with a fade. This is the largest unused
+  native device.
+- **Steel and flap faces are CSS gradients**, not a produced brushed-metal
+  texture. At the 3–11px scale the steel is used this reads adequately, but a
+  real material asset would close the distance to the world's quality bar.
+- **No comp round was run.** Image generation was available but billable to the
+  user's connected account and not authorised, so the direction went from card
+  straight to build without rendered compositional options.
+- Three stock photographs are reused across seven routes.
 - See `README.md` for the full replacement checklist.
