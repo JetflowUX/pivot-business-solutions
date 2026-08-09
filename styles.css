@@ -141,7 +141,9 @@ h4{font-size:.72rem;letter-spacing:.2em;color:var(--paint-3);font-weight:600}
 
 /* The frame: brushed steel with a screw at each end. Elevation is declared
    once, here, as the frame — no shadow is ever stacked under it. */
-.frame{padding:var(--frame);background:var(--brushed);border-radius:var(--r);position:relative}
+/* A grid so a single short panel still fills its surround; otherwise the
+   steel shows below the panel in any row of unequal-height tiles. */
+.frame{display:grid;padding:var(--frame);background:var(--brushed);border-radius:var(--r);position:relative}
 .frame > *{border-radius:1px}
 /* four screws, sunk into the steel at the corners of the surround */
 @media (min-width:760px){
@@ -474,6 +476,8 @@ a.svc:hover{color:var(--amber)}
 .figure.tba b{color:transparent;-webkit-text-stroke:2.2px var(--amber)}
 .figure > span{display:block;font-family:var(--board-face);font-weight:600;font-size:.68rem;text-transform:uppercase;
   letter-spacing:.16em;color:var(--paint-3);margin-top:.7rem}
+/* the tag is a chip, not a row: it must not inherit the label's full width */
+.figure > .tba-tag{display:inline-block;width:auto;margin-top:0}
 
 .voices{display:grid;gap:var(--rail);grid-template-columns:1fr}
 @media (min-width:860px){.voices{grid-template-columns:repeat(3,1fr)}}

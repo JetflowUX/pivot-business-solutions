@@ -4,7 +4,7 @@ A seven-page static site for a counseling + consulting practice.
 **Slogan:** *Find your pivot.*
 
 - **Concept:** a *pivot* — one foot planted, the other changing direction. Life counseling for athletes and young people; management consulting for athletes and businesses.
-- **Design world:** an **azulejo station hall**. Cobalt oxide on milk-white tin glaze, mustard only inside border frames, grout seams running straight through every panel, photograph and figure. Inscriptional roman caps (**Cinzel**) over old-style text (**EB Garamond**). Light glaze by default, dark "reverse-fired" glaze on toggle.
+- **Design world:** a **concourse departure board**. Matte flap black, white paint capitals in fixed character cells, brushed steel surrounds bolted at the corners, and one amber lamp on the row that matters — the free first conversation. **Archivo Narrow** on every flap, **Archivo** for the printed notices. One state: a departure board is black, so there is no light theme and no toggle.
 - 100% static, self-contained (self-hosted fonts, no external CDNs, no tracking). No build step.
 
 See `PRODUCT.md` for product truth and `DESIGN.md` for the visual system.
@@ -48,10 +48,9 @@ CLI: `npm i -g vercel && vercel` then `vercel --prod`.
 ## ✏️ Replace before going live
 
 The design deliberately marks unverified content instead of hiding it. Anything
-that is not a confirmed fact renders as an **unpainted tile**: a dashed frame, a
-mustard `UNPAINTED` tag, and outlined rather than solid figures. That state is
-part of the design system, not a bug — it is how this hall shows a panel that has
-not been painted yet.
+that is not a confirmed fact renders as **TBA**: a dashed amber chip or tag, and
+outlined rather than solid figures. That state is part of the design system, not
+a bug — it is how a departure board shows a service with nothing confirmed yet.
 
 ### Blocking — do not publish without these
 
@@ -59,9 +58,12 @@ not been painted yet.
 |---|---|---|
 | 1 | **Email address** `hello@pivotbusinesssolutions.com` (not a live address) | footer of all 7 pages · `contact.html` · `CONSULT_ADDRESS` in `script.js` |
 | 2 | **Phone** `(555) 012-3456` / `tel:+15550123456` | footer of all 7 pages · `contact.html` |
-| 3 | **Practitioner bio** — name, photo, qualifications, licensure | `about.html` → the unpainted panel under "The practitioner" |
-| 4 | **Stats** `12+` years, `300+` clients | `index.html` → `.figures`, the two `.unfired` tiles |
-| 5 | **Testimonials** — three written samples, no real client said them | `index.html` → `.voices`, all three `.unfired` tiles. Replace with real, permissioned quotes **or delete the section** |
+| 3 | **Practitioner bio** — name, photo, qualifications, licensure | `about.html` → the TBA panel under "This row is not announced yet" |
+| 4 | **Stats** `12+` years, `300+` clients | `index.html` → `.figures`, the two `.tba` tiles |
+| 5 | **Testimonials** — three written samples, no real client said them | `index.html` → `.voices`, all three `.tba` tiles. Replace with real, permissioned quotes **or delete the section** |
+
+A sixth row, **fees & engagement length**, sits on the home board as a `TBA` row
+because no pricing was supplied. Confirm or remove it once scope and cost exist.
 
 Search the repo for `PLACEHOLDER` to find every one of these in code.
 
@@ -77,7 +79,8 @@ Search the repo for `PLACEHOLDER` to find every one of these in code.
 ### Removed deliberately
 
 - `images/counsel.jpg` was **deleted**: it contained a visible Nike wordmark and swoosh, which should not ship on a commercial site.
-- The previous Fraunces + Archivo webfonts were removed with the old design.
+- The azulejo ornament (`images/orn-*.svg`) and the Cinzel + EB Garamond webfonts were removed with that design.
+- There is no theme toggle. The board is black by design, not by default.
 
 ## Structure
 
@@ -85,19 +88,14 @@ Search the repo for `PLACEHOLDER` to find every one of these in code.
 index.html  who-i-help.html  counseling.html  consulting.html
 approach.html  about.html  contact.html
 styles.css · script.js
-fonts/      Cinzel + EB Garamond (woff2, self-hosted, SIL OFL)
-images/     hero · consult · youth  +  orn-*.svg (authored ornament)
+fonts/      Archivo Narrow + Archivo (woff2, self-hosted, SIL OFL)
+images/     hero · consult · youth
 favicon.svg · vercel.json · package.json
 PRODUCT.md · DESIGN.md
 ```
 
-The `orn-*.svg` files are authored azulejo ornament (running-scroll frieze,
-cartouche corner volute, divider fleuron, padrão pattern field, pivot device).
-They are worn as **CSS masks**, so their ink color comes from a token and one
-file serves both the light and dark glaze.
-
 ## Notes
 
 - **Accessibility:** respects `prefers-reduced-motion`, fully keyboard operable, visible focus rings, skip link, `aria-current` on the active route, tabular figures, lazy-loaded images below the fold.
-- **Motion** is one idea: glaze flooding line work in the kiln. Panels wash in from the top edge; nothing slides or bounces. With JS disabled, everything is visible at full opacity.
-- Fonts: Cinzel & EB Garamond under the SIL Open Font License. Photos: Unsplash.
+- **Motion** is one idea: the board setting itself. Character cells flip down from the hinge, left to right, then the table rows land behind them. That happens once, on the first screen, and nothing else on the site moves. With JS disabled the same words render as tracked capitals at full opacity.
+- Fonts: Archivo Narrow & Archivo under the SIL Open Font License. Photos: Unsplash.
